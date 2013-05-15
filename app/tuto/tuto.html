@@ -1,0 +1,35 @@
+<div id="header">
+    <img src="img/angular.png">
+    <h2>Tutoriel</h2>
+</div>
+
+<div ng-controller="tutoCtrl" class="steps">
+
+    <div ng-repeat="step in steps" class="step" ng-class="{'is-active': step.isActive()}"
+         ng-init="opened = step.isActive(); solOpened = false">
+        <div class="step-title" ng-click="opened = !opened">{{step.title}}
+            <span class="vline a"></span>
+            <span class="picto"></span>
+            <span class="vline b"></span>
+        </div>
+
+        <div class="step-detail well" ng-class="{solHidden: !opened, solShown: opened}">
+            <h4>Explications</h4>
+
+            <div ng-include="step.detailTemplateName" class="well"></div>
+
+            <div ng-hide="step.errors.length == 0">
+                <h4>Que manque t'il ?</h4>
+
+                <div class="well">
+                    {{step.errors[0]}}
+                </div>
+            </div>
+
+            <button class="btn btn-success" type="button" ng-click="solOpened = !solOpened">
+                Solution <span class="caret"></span></button>
+            <div class="solution" ng-class="{solHidden: !solOpened, solShown: solOpened}"
+                 ng-include="step.solutionTemplateName"></div>
+        </div>
+    </div>
+</div>

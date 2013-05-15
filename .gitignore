@@ -1,0 +1,10 @@
+**/.DS_Store
+nbproject
+manifest.mf
+build.xml
+node_modules/
+
+.project
+.settings
+.idea/*
+*.iml
