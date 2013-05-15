@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <div class="row-fluid">
+        <div class="span4"></div>
+        <div class="span8">
+            <div class="row-fluid">
+                <div class="span2">Date</div>
+                <div class="span2">Status</div>
+                <div class="span2">URL</div>
+                <div class="span2">Message</div>
+            </div>
+            <div ng-repeat="log in logs" class="row-fluid">
+                <div class="span2">{{log.date}}</div>
+                <div class="span2">{{log.status}}</div>
+                <div class="span2">{{log.url}}</div>
+                <div class="span2">{{log.message}}</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

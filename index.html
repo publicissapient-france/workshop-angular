@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en" ng-app="workshop">
+<head>
+  <meta charset="utf-8">
+  <title>Angular Workshop</title>
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <script src="lib/angular/angular.min.js"></script>
+  <script src="js/app.js"></script>
+</head>
+<body>
+
+    <div ng-controller="headerCtrl" class="span12 row-fluid">
+        <div class="span3">Welcome to the Angular Workshop! {{userName}}</div>
+        <div class="span6"></div>
+        <div class="span3" ng-hide="hideNameInput"><input ng-model="userName"/></div>
+    </div>
+
+    <div ng-view></div>
+
+</body>
+</html>
