@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tuto 2 panes</title>
+    <link href="css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
+    <link type="text/css" rel="stylesheet" href="css/shCore.css"/>
+    <link type="text/css" rel="stylesheet" href="css/shThemeDefault.css"/>
+    <link href="css/main.less" media="screen" rel="stylesheet/less" type="text/css">
+</head>
+<body>
+
+<div id="tutorial" ng-include="'tuto/tuto.html'"></div>
+<div id="angular-app" ng-app="accessLog">
+    <div ng-controller="testCtrl">
+        exercises: {{test}}
+    </div>
+</div>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="lib/angular/angular.js"></script>
+<script src="lib/bootstrap.min.js"></script>
+<script src="lib/highlighter/shCore.js"></script>
+<script src="lib/highlighter/shBrushJScript.js"></script>
+<script src="lib/highlighter/shBrushXml.js"></script>
+<script src="lib/less.js"></script>
+
+<!-- Custom -->
+<script src="js/app.js"></script>
+<!-- end -->
+
+<script src="tuto/tuto.js"></script>
+</body>
+</html>
