@@ -3,8 +3,8 @@
 angular.module('workshop',[]).
   config(['$routeProvider', function($routeProvider) {
   $routeProvider.
-      when('/logs', {templateUrl: 'html/log-list.html',   controller: LogCtrl}).
-      when('/logs/:logId', {templateUrl: 'html/log-detail.html', controller: LogDetailCtrl}).
+      when('/logs', {templateUrl: 'workshop/html/log-list.html',   controller: LogCtrl}).
+      when('/logs/:logId', {templateUrl: 'workshop/html/log-detail.html', controller: LogDetailCtrl}).
       otherwise({redirectTo: '/logs'});
 }]);
 
