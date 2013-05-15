@@ -42,8 +42,17 @@ function LogCtrl($scope, $http) {
 
 }
 
-function LogDetailCtrl($scope) {
+function LogDetailCtrl($scope, $routeParams, $http) {
 
+
+    $http.get('workshop/data/logs.json').success(function(data, status, headers, config) {
+        for (var i = 0; i < data.length; i++) {
+            if(data[i].id==$routeParams.logId){
+                $scope.log = data[i];
+            }
+        }
+
+    });
 }
 
 

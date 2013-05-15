@@ -21,7 +21,7 @@
                 <div class="span2">Message</div>
             </div>
             <div ng-repeat="log in logs | filter:textSearchInput | filter:statusFilter" class="row-fluid">
-                <div class="span2">{{log.date}}</div>
+                <div class="span2"><a href="#/logs/{{log.id}}">{{log.date}}</a></div>
                 <div class="span2">{{log.status}}</div>
                 <div class="span2">{{log.url | truncate}}</div>
                 <div class="span2">{{log.message}}</div>
