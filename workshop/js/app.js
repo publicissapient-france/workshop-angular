@@ -25,7 +25,25 @@ function LogCtrl($scope) {
         {"id":"5", "status":"200", "message":"OK", "url":"http://ok.html", "date":"01/01/2013 00:05:10"},
         {"id":"6", "status":"500", "message":"PROBLEM SIR?", "url":"http://troll.html", "date":"01/01/2013 01:04:00"},
         {"id":"7", "status":"404", "message":"NOT FOUND!", "url":"http://notfound.html", "date":"01/01/2013 01:05:00"}
-    ]
+    ];
+
+    $scope.selectedStatus={
+        "200":true,
+        "404":true,
+        "500":true
+    }
+
+
+
+    $scope.statusFilter = function(log) {
+
+        if ($scope.selectedStatus[log.status]) {
+            return true;
+        }
+
+        return false;
+    };
+
 
 }
 
