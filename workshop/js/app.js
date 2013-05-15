@@ -1,6 +1,6 @@
 /* App Module */
 
-angular.module('workshop',[]).
+angular.module("workshop",["filters"]).
   config(['$routeProvider', function($routeProvider) {
   $routeProvider.
       when('/logs', {templateUrl: 'workshop/html/log-list.html',   controller: LogCtrl}).
@@ -45,3 +45,20 @@ function LogCtrl($scope, $http) {
 function LogDetailCtrl($scope) {
 
 }
+
+
+angular.module('filters', []).
+    filter('truncate', function () {
+        return function (text) {
+            var length = 15;
+            var end = "...";
+
+            if (text.length <= length || text.length - end.length <= length) {
+                return text;
+            }
+            else {
+                return String(text).substring(0, length-end.length) + end;
+            }
+
+        };
+    });

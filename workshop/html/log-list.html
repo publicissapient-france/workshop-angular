@@ -23,7 +23,7 @@
             <div ng-repeat="log in logs | filter:textSearchInput | filter:statusFilter" class="row-fluid">
                 <div class="span2">{{log.date}}</div>
                 <div class="span2">{{log.status}}</div>
-                <div class="span2">{{log.url}}</div>
+                <div class="span2">{{log.url | truncate}}</div>
                 <div class="span2">{{log.message}}</div>
             </div>
         </div>
