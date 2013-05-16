@@ -12,6 +12,13 @@
     </head>
     <body>
 
+        <header>
+            <div>
+                <input type="text" ng-model="textSearchInput">
+                <a class="search_clear" href="#"></a>
+            </div>
+        </header>
+
         <div ng-controller="headerCtrl">
             <p>
                 Welcome to Angular Workshop {{userName}} ! <input type="text" ng-model="userName" ng-hide="hideNameInput" />
