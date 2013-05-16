@@ -1,0 +1,148 @@
+html {
+    overflow: auto;
+    height: 100%;
+}
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+
+    font-family: 'lucida grande', 'Open Sans', tahoma, verdana, arial, sans-serif;
+	font-size: 12px;
+}
+
+header {
+    color: #AAA;
+    padding: 20px 20px;
+    border-bottom: solid 1px #DDD;
+
+    background-image: url("logo.png");;
+    background-size: 235px 50px;
+    background-repeat: no-repeat;
+    background-position: 5px center;
+}
+
+header div {
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+	box-shadow: inset 0 0 4px 0 rgba(0, 0, 0, 0.1);
+	border-radius: 13px;
+	background-clip: padding-box;
+	height: 26px;
+	width: 200px;
+	padding: 0 20px 0 28px;
+	background-color: #ebeff1;
+	line-height: 26px;
+	background-size: 15px 15px;
+	background-repeat: no-repeat;
+	background-position: 9px 50%;
+	background-image: url("search.png");
+	
+}
+
+header input {
+	background-color: #ebeff1;
+	color: #4b5c66;
+	border: none;
+	width: 100%;
+	outline: none;
+	margin: 0;
+	padding: 0;
+	font-size: 100%;
+}
+
+header .search_clear {
+    display: block;
+    position: absolute;
+    top: 2px;
+    right: 3px;
+    width: 22px;
+    height: 22px;
+    cursor: pointer;
+    background-image: url("close.png");
+    background-size: 14px 14px;
+    background-repeat: no-repeat;
+    background-position: center center;
+    opacity: 0.5;
+}
+
+#navigation {
+    width: 150px;
+    padding: 20px 20px;
+    border: none;
+    float: left;
+    overflow: auto;
+
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+#navigation div {
+    color: rgb(184, 195, 201);
+    font-size: 10px;
+    height: 10px;
+    line-height: 10px;
+    margin-bottom: 6px;
+    padding-bottom: 0px;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 0px;
+    text-transform: uppercase;
+}
+
+#navigation ul {
+    color: rgb(137, 148, 155);
+    margin: 0;
+    padding: 0;
+}
+
+#navigation li {
+    color: rgb(75, 92, 102);
+    display: block;
+    font-size: 14px;
+    padding: 2px 5px 2px 10px;
+}
+
+#navigation label {
+    margin: 3px 0.5ex;
+}
+
+#content {
+    margin-left: 190px;
+    padding: 20px 20px;
+}
+
+#content table {
+    border-spacing: 0;
+}
+
+#content table th {
+    color: rgb(184, 195, 201);
+    font-size: 10px;
+    font-weight: normal;
+    text-transform: uppercase;
+    padding: 0px 8px 10px 8px;
+}
+
+#content table tr:nth-child(even) {
+    background: rgba(127, 50, 111, 0.1);
+}
+
+#content table td {
+    color: #7f326f;
+    padding: 12px;
+}
+
+#content table td:nth-child(1) {
+    width: 300px;
+}
+#content table td:nth-child(2), td:nth-child(3), td:nth-child(4), td:nth-child(5) {
+    width: 80px;
+    text-align: center;
+}
