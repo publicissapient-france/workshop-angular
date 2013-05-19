@@ -1,0 +1,45 @@
+
+<div id="navigation">
+    <div>HTTP status</div>
+    <ul>
+        <li><input type="checkbox" id="200" ng-model="selectedStatus[200]"><label for="200">200</label></li>
+        <li><input type="checkbox" id="404" ng-model="selectedStatus[404]"><label for="404">404</label></li>
+        <li><input type="checkbox" id="500" ng-model="selectedStatus[500]"><label for="500">500</label></li>
+    </ul>
+    <br>
+    <div>HTTP type</div>
+    <ul>
+        <li><input type="checkbox" id="GET" ng-model="selectedMethods['GET']"><label for="GET">GET</label></li>
+        <li><input type="checkbox" id="POST" ng-model="selectedMethods['POST']"><label for="POST">POST</label></li>
+        <li><input type="checkbox" id="PUT" ng-model="selectedMethods['PUT']"><label for="PUT">PUT</label></li>
+        <li><input type="checkbox" id="DELETE" ng-model="selectedMethods['DELETE']"><label for="DELETE">DELETE</label></li>
+    </ul>
+</div>
+
+<div id="content">
+    <table id="hor-zebra" summary="Employee Pay Sheet">
+        <thead>
+        <tr>
+            <th>Date</th>
+            <th>Path</th>
+            <th>Method</th>
+            <th>Status</th>
+            <th>Size</th>
+            <th>Time</th>
+            <th>Message</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!--<tr ng-repeat="log in logs | filter:textSearchInput | filter:statusFilter | filter:methodsFilter">-->
+        <tr ng-repeat="log in logs | filter:textSearchInput | filter:statusFilter | filter:methodsFilter">
+            <td><a href="#/logs/{{log.id}}">{{log.date}}</a></td>
+            <td>{{log.url | truncate}}</td>
+            <td>{{log.method}}</td>
+            <td>{{log.status}}</td>
+            <td>2898 B</td>
+            <td>10:36</td>
+            <td>{{log.message}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>

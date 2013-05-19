@@ -6,14 +6,25 @@
     <link type="text/css" rel="stylesheet" href="css/shCore.css"/>
     <link type="text/css" rel="stylesheet" href="css/shThemeDefault.css"/>
     <link href="css/main.less" media="screen" rel="stylesheet/less" type="text/css">
+
+    <link href="css/styles.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 
 <div id="tutorial" ng-include="'tuto/tuto.html'"></div>
-<div id="angular-app" ng-app="accessLog">
-    <div ng-controller="testCtrl">
-        exercises: {{test}}
-    </div>
+<div id="angular-app" ng-app="workshop">
+
+    <header>
+        <div>
+            <input type="text" ng-model="textSearchInput">
+            <a class="search_clear" href="#"></a>
+        </div>
+    </header>
+
+    <p>Welcome to Angular Workshop!</p>
+
+    <div ng-view></div>
+
 </div>
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
