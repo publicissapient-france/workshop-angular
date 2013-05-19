@@ -20,18 +20,17 @@
     <table id="hor-zebra" summary="Employee Pay Sheet">
         <thead>
         <tr>
-            <th>Date</th>
-            <th>Path</th>
-            <th>Method</th>
-            <th>Status</th>
+            <th><a href="" ng-click="predicate = 'date'; reverse=!reverse">Date</a></th>
+            <th><a href="" ng-click="predicate = 'path'; reverse=!reverse">Path</a></th>
+            <th><a href="" ng-click="predicate = 'method'; reverse=!reverse">Method</a></th>
+            <th><a href="" ng-click="predicate = 'status'; reverse=!reverse">Status</a></th>
             <th>Size</th>
             <th>Time</th>
-            <th>Message</th>
+            <th><a href="" ng-click="predicate = 'message'; reverse=!reverse">Message</a></th>
         </tr>
         </thead>
         <tbody>
-        <!--<tr ng-repeat="log in logs | filter:textSearchInput | filter:statusFilter | filter:methodsFilter">-->
-        <tr ng-repeat="log in logs | filter:textSearchInput | filter:statusFilter | filter:methodsFilter">
+        <tr ng-repeat="log in logs | filter:textSearchInput | filter:statusFilter | filter:methodsFilter | orderBy:predicate:reverse  ">
             <td><a href="#/logs/{{log.id}}">{{log.date}}</a></td>
             <td>{{log.url | truncate}}</td>
             <td>{{log.method}}</td>

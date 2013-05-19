@@ -1,0 +1,8 @@
+{
+    "id": "3",
+    "method": "DELETE",
+    "status": "404",
+    "message": "NOT FOUND!",
+    "url": "http://notfound.html",
+    "date": "01/01/2013 00:00:10"
+}
