@@ -15,7 +15,7 @@ var app = angular.module("workshop", []).
 
 function LogCtrl($scope, $http) {
 
-    $http.get('data/log-list.json').success(function (data) {
+    $http.get('/logs').success(function (data) {
         $scope.logs = data;
     });
 
@@ -43,8 +43,7 @@ function LogCtrl($scope, $http) {
 }
 
 function LogDetailCtrl($scope, $routeParams, $http) {
-    var uri = 'data/log-' + $routeParams.logId + '.json';
-    $http.get(uri).success(function (data) {
+    $http.get('logs/' + $routeParams.logId).success(function (data) {
         $scope.log = data;
     });
 }
