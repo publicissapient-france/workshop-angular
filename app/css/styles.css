@@ -1,15 +1,8 @@
-html {
+#angular-app {
     overflow: auto;
     height: 100%;
-}
-body {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    height: 100%;
-
     font-family: 'lucida grande', 'Open Sans', tahoma, verdana, arial, sans-serif;
-	font-size: 12px;
+    font-size: 12px;
 }
 
 header {
@@ -24,22 +17,21 @@ header {
 }
 
 header div {
-    margin-left: auto;
-    margin-right: auto;
+    margin-left: 60%;
     position: relative;
 	box-shadow: inset 0 0 4px 0 rgba(0, 0, 0, 0.1);
 	border-radius: 13px;
 	background-clip: padding-box;
-	height: 26px;
+	height: 30px;
 	width: 200px;
-	padding: 0 20px 0 28px;
+    padding: 0 40px 0 28px;
 	background-color: #ebeff1;
 	line-height: 26px;
 	background-size: 15px 15px;
 	background-repeat: no-repeat;
 	background-position: 9px 50%;
 	background-image: url("search.png");
-	
+
 }
 
 header input {
@@ -56,7 +48,7 @@ header input {
 header .search_clear {
     display: block;
     position: absolute;
-    top: 2px;
+    top: 4px;
     right: 3px;
     width: 22px;
     height: 22px;
@@ -69,11 +61,8 @@ header .search_clear {
 }
 
 #navigation {
-    width: 150px;
-    padding: 20px 20px;
-    border: none;
+    width: 120px;
     float: left;
-    overflow: auto;
 
     -webkit-touch-callout: none;
     -webkit-user-select: none;
@@ -97,29 +86,23 @@ header .search_clear {
 }
 
 #navigation ul {
-    color: rgb(137, 148, 155);
     margin: 0;
-    padding: 0;
 }
 
 #navigation li {
     color: rgb(75, 92, 102);
     display: block;
-    font-size: 14px;
     padding: 2px 5px 2px 10px;
 }
 
+#navigation input {
+    margin-top: 0px;
+}
+
 #navigation label {
-    margin: 3px 0.5ex;
-}
-
-#content {
-    margin-left: 190px;
-    padding: 20px 20px;
-}
-
-#content table {
-    border-spacing: 0;
+    margin-left: 8px;
+    display: inline;
+    vertical-align: middle;
 }
 
 #content table th {
@@ -127,7 +110,6 @@ header .search_clear {
     font-size: 10px;
     font-weight: normal;
     text-transform: uppercase;
-    padding: 0px 8px 10px 8px;
 }
 
 #content table tr:nth-child(even) {
@@ -136,7 +118,6 @@ header .search_clear {
 
 #content table td {
     color: #7f326f;
-    padding: 12px;
 }
 
 #content table td:nth-child(1) {
