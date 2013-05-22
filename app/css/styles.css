@@ -9,6 +9,7 @@ header {
     color: #AAA;
     padding: 20px 20px;
     border-bottom: solid 1px #DDD;
+    min-height: 30px;
 
     background-image: url("logo.png");;
     background-size: 235px 50px;
@@ -103,6 +104,10 @@ header .search_clear {
     margin-left: 8px;
     display: inline;
     vertical-align: middle;
+}
+
+#content {
+    height: 300px;
 }
 
 #content table th {

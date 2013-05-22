@@ -14,9 +14,11 @@ var app = angular.module("workshop", []).
 /* Controllers */
 
 function LogCtrl($scope, $http) {
+    var logs = [];
+    $scope.history = []
 
     $http.get('/logs').success(function (data) {
-        $scope.logs = data;
+        $scope.filteredLogs = logs = data;
     });
 
     $scope.selectedStatus = {
@@ -32,13 +34,39 @@ function LogCtrl($scope, $http) {
         "DELETE": true
     };
 
-    $scope.statusFilter = function (log) {
-        return $scope.selectedStatus[log.status];
+    $scope.$watch('selectedStatus', function () {
+        filterLogs();
+    }, true);
+
+    $scope.$watch('selectedMethods', function () {
+        filterLogs();
+    }, true);
+
+    $scope.submit = function() {
+        if ($scope.textSearchInput) {
+            $scope.history.unshift($scope.textSearchInput);
+        }
+        filterLogs();
     };
 
-    $scope.methodsFilter = function (log) {
-        return $scope.selectedMethods[log.method];
-    };
+    function filterLogs() {
+        console.log("Filter")
+        var result = [];
+        logs.forEach(function(log) {
+            if ((!$scope.textSearchInput || log.url.indexOf($scope.textSearchInput) != -1)
+                && $scope.selectedStatus[log.status]
+                && $scope.selectedMethods[log.method] ) {
+                result.push(log);
+            }
+        });
+
+        $scope.filteredLogs = result;
+    }
+
+    $scope.searchFromHistory = function(search) {
+        $scope.textSearchInput = search;
+        filterLogs();
+    }
 
 }
 

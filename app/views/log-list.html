@@ -1,3 +1,13 @@
+<header>
+    <div>
+        <form ng-submit="submit()">
+            <input type="text" ng-model="textSearchInput">
+            <a class="search_clear" ng-click="textSearchInput = ''; submit()"></a>
+        </form>
+    </div>
+</header>
+
+<p>Welcome to Angular Workshop!</p>
 
 <div id="navigation">
     <div>HTTP status</div>
@@ -24,21 +34,30 @@
             <th><a href="" ng-click="predicate = 'path'; reverse=!reverse">Path</a></th>
             <th><a href="" ng-click="predicate = 'method'; reverse=!reverse">Method</a></th>
             <th><a href="" ng-click="predicate = 'status'; reverse=!reverse">Status</a></th>
-            <th>Size</th>
-            <th>Time</th>
+            <!--<th>Size</th>-->
+            <!--<th>Time</th>-->
             <th><a href="" ng-click="predicate = 'message'; reverse=!reverse">Message</a></th>
         </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="log in logs | filter:textSearchInput | filter:statusFilter | filter:methodsFilter | orderBy:predicate:reverse  ">
+        <!--<tr ng-repeat="log in logs | filter:textSearchInput | filter:statusFilter | filter:methodsFilter | orderBy:predicate:reverse  ">-->
+        <tr ng-repeat="log in filteredLogs | orderBy:predicate:reverse  ">
             <td><a href="#/logs/{{log.id}}">{{log.date}}</a></td>
             <td>{{log.url | truncate}}</td>
             <td>{{log.method}}</td>
             <td>{{log.status}}</td>
-            <td>2898 B</td>
-            <td>10:36</td>
+            <!--<td>2898 B</td>-->
+            <!--<td>10:36</td>-->
             <td>{{log.message}}</td>
         </tr>
         </tbody>
     </table>
+</div>
+
+<hr>
+
+<div id="history" ng-hide="!history.length">
+    <p>History:</p>
+    <input for type="text" ng-model="searchHistory">
+    <div ng-repeat="item in history | filter:searchHistory"><a href="" ng-click="searchFromHistory(item)">{{item}}</a></div>
 </div>
