@@ -13,9 +13,9 @@ var app = angular.module("workshop", []).
 
 /* Controllers */
 
-function LogCtrl($scope, $http) {
+function LogCtrl($scope, $http, history) {
     var logs = [];
-    $scope.history = []
+    $scope.history = history;
 
     $http.get('/logs').success(function (data) {
         $scope.filteredLogs = logs = data;
@@ -44,13 +44,12 @@ function LogCtrl($scope, $http) {
 
     $scope.submit = function() {
         if ($scope.textSearchInput) {
-            $scope.history.unshift($scope.textSearchInput);
+            history.unshift($scope.textSearchInput);
         }
         filterLogs();
     };
 
     function filterLogs() {
-        console.log("Filter")
         var result = [];
         logs.forEach(function(log) {
             if ((!$scope.textSearchInput || log.url.indexOf($scope.textSearchInput) != -1)
@@ -67,7 +66,6 @@ function LogCtrl($scope, $http) {
         $scope.textSearchInput = search;
         filterLogs();
     }
-
 }
 
 function LogDetailCtrl($scope, $routeParams, $http) {
@@ -75,6 +73,11 @@ function LogDetailCtrl($scope, $routeParams, $http) {
         $scope.log = data;
     });
 }
+
+app.factory('history', function () {
+    var history = [];
+    return history;
+});
 
 /* Filters */
 
