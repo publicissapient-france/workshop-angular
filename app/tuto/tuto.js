@@ -29,35 +29,22 @@ angular.module('tuto').service('exercise', function ($controller) {
 
     var STEPS = [
         new Step({
-            title: "Création de l'application",
-            detailTemplateName: "tuto/views/tutorial-step-creation.html",
-            solutionTemplateName: "tuto/views/tutorial-solution-creation.html",
+            title: "Initialisation de l'application",
+            detailTemplateName: "tuto/views/tutorial-step-initialisation.html",
+            solutionTemplateName: "tuto/views/tutorial-solution-initialisation.html",
             test: function () {
                 // Verify module
                 try {
-                    angular.module('accessLog');
+                    angular.module('workshop');
                 } catch (e) {
-                    fail("Module 'accessLog' n'est pas défini");
-                }
-
-                // Verify controller
-                try {
-                    var elem = angular.element(document.querySelector('#angular-app'));
-                    var injector = elem.injector();
-                    var $controller = injector.get('$controller');
-                    $controller('testCtrl', {$scope: {}});
-                } catch (e) {
-                    fail("Controller 'testCtrl' n'est pas défini");
+                    fail("Le module 'workshop' n'est pas défini");
                 }
 
                 // verify ng-app
-                ok($('div[ng-app*="accessLog"]').length, "ng-app n'est pas défini dans template");
-
-                // verify ng-controller
-                ok($('div[ng-controller*="testCtrl"]').length, "ng-controller n'est pas défini dans template");
+                ok($('#angular-app[ng-app*="workshop"]').length, "L'attribut ng-app doit être défini au niveau du div #angular-app");
             }
         }),
-        new Step({
+        /*new Step({
             title: "Dites bonjour au monde des poneys",
             detailTemplateName: "tuto/views/tutorial-step-hello.html",
             solutionTemplateName: "tuto/views/tutorial-solution-hello.html",
@@ -79,7 +66,7 @@ angular.module('tuto').service('exercise', function ($controller) {
             solutionTemplateName: "tuto/views/tutorial-solution-model.html",
             test: function () {
             }
-        })
+        })*/
     ];
 
     function ok(testPassed, msg) {
