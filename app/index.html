@@ -12,8 +12,9 @@
 <body>
 
 <div id="tutorial" ng-include="'tuto/tuto.html'"></div>
-<div id="angular-app" >
-
+<div id="angular-app" ng-app="workshop">
+	<input type="text" ng-model="query" />
+	{{query}}
 </div>
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>

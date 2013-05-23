@@ -44,6 +44,22 @@ angular.module('tuto').service('exercise', function ($controller) {
                 ok($('#angular-app[ng-app*="workshop"]').length, "L'attribut ng-app doit être défini au niveau du div #angular-app");
             }
         }),
+		new Step({
+		    title: "Le two-way binding made in angular",
+            detailTemplateName: "tuto/views/tutorial-step-two-way-binding.html",
+            solutionTemplateName: "tuto/views/tutorial-solution-two-way-binding.html",
+            test: function () {
+				ok($('#angular-app input[ng-model="query"]').length, "L'attribut ng-model avec la valeur query doit être défini au niveau du champs de recherche");
+
+				$("input").val('test');					
+				$("input").trigger('input');
+				
+				ok($('#angular-app:contains("test")').length, "La valeur doit être affichée dans la page")
+				$("input").val('')				
+				$("input").trigger('input')	
+            }
+        }),
+
         /*new Step({
             title: "Dites bonjour au monde des poneys",
             detailTemplateName: "tuto/views/tutorial-step-hello.html",
