@@ -59,30 +59,34 @@ angular.module('tuto').service('exercise', function ($controller) {
 				$("input").trigger('input')	
             }
         }),
-
-        /*new Step({
-            title: "Dites bonjour au monde des poneys",
-            detailTemplateName: "tuto/views/tutorial-step-hello.html",
-            solutionTemplateName: "tuto/views/tutorial-solution-hello.html",
-            test: function () {
-//                ok(false, "Second step. Test 1");
-            }
-        }),
         new Step({
-            title: "Créer un datastore",
+            title: "Créer un controlleur",
             detailTemplateName: "tuto/views/tutorial-step-ds.html",
             solutionTemplateName: "tuto/views/tutorial-solution-ds.html",
             test: function () {
-                ok(false, "Third step is failed.");
+
+                // Verif contoleur
+                try {
+                    LogCtrl;
+                } catch(error) {
+                    fail("Le controleur 'LogCtrl' n'est pas definit");
+                }
+
+                ok (typeof LogCtrl == 'function', "Le controleur 'LogCtrl' doit être une fonction");
+                ok(/.*\(.*\$scope.*\).*/.test(LogCtrl.toString()), "Le '$scope' doit être injecté dans le controleur");
+
+                var scope = {};
+                LogCtrl(scope)
+
+                ok(scope.logs != undefined, "Proprieté 'logs' n'est pas defini dans le scope");
+                ok(typeof scope.logs == 'object' && scope.logs instanceof Array, "Proprieté 'logs' doit être un tableau")
+                ok(scope.logs.length > 0, "Copier les logs depuis les explications")
+
+                console.log("Test: " + typeof(scope.logs))
+
+                //ok (LogCtrlRRRR != undefined, "Third step is failed.")
             }
-        }),
-        new Step({
-            title: "Créer une classe Pony",
-            detailTemplateName: "tuto/views/tutorial-step-model.html",
-            solutionTemplateName: "tuto/views/tutorial-solution-model.html",
-            test: function () {
-            }
-        })*/
+        })
     ];
 
     function ok(testPassed, msg) {
