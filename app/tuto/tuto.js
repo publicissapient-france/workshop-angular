@@ -77,7 +77,12 @@ angular.module('tuto').service('exercise', function ($controller) {
 
                 ok(scope.logs != undefined, "Proprieté 'logs' n'est pas defini dans le scope");
                 ok(typeof scope.logs == 'object' && scope.logs instanceof Array, "Proprieté 'logs' doit être un tableau")
-                ok(scope.logs.length > 0, "Copier les logs depuis les explications")
+                ok(scope.logs.length === 7 && scope.logs[0].url === "http://my/site/name/for/fun/and/filtering/demonstration/ok.html",
+                    "Copier les logs depuis les explications")
+
+                ok($('#angular-app[ng-controller*="LogCtrl"]').length, "Le controleur 'LogCtrl' doit être défini au niveau du div #angular-app");
+                ok($('#angular-app:contains("http://my/site/name/for/fun/and/filtering/demonstration/ok.html")').length,
+                    "Le JSON de logs doit être affiché dans la page")
 
                 console.log("Test: " + typeof(scope.logs))
             }
