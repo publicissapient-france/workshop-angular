@@ -5,8 +5,8 @@
 
 <div ng-controller="tutoCtrl" class="steps">
 
-    <div ng-repeat="step in steps" class="step" ng-class="{'is-active': step.active}"
-         ng-init="opened = step.active; solOpened = false">
+    <div ng-repeat="step in steps" class="step" ng-class="{'is-active': step.isActive()}"
+         ng-init="opened = step.isActive(); solOpened = false">
         <div class="step-title" ng-click="opened = !opened">{{step.title}}
             <span class="vline a"></span>
             <span class="picto"></span>

@@ -1,11 +1,14 @@
 'use strict';
 angular.module('tuto', []);
 
-angular.module('tuto').controller('tutoCtrl', function ($scope, exercise, exerciseLauncher) {
+angular.module('tuto').controller('tutoCtrl', function ($scope, exercise, exerciseLauncher, localStorage) {
     $scope.steps = exercise.STEPS;
 
-    exerciseLauncher.execTestsSteps(exercise.STEPS, exercise.STEPS.length);
+    var lastRuningTestIdx = localStorage.lastRuningTestIdx ? parseInt(localStorage.lastRuningTestIdx) : 0;
+    exerciseLauncher.execTestsSteps(exercise.STEPS, lastRuningTestIdx);
 });
+
+angular.module('tuto').value('localStorage', window.localStorage);
 
 angular.module('tuto').service('exercise', function ($controller) {
     var countAssert;
@@ -20,10 +23,12 @@ angular.module('tuto').service('exercise', function ($controller) {
     Step.prototype.test = function () {
         ok(false, "Test not implemented")
     };
-    Step.prototype.passed = true;
+    Step.prototype.passed = false;
     Step.prototype.executed = false;
     Step.prototype.errors = [];
-    Step.prototype.active = false;
+    Step.prototype.isActive = function () {
+        return !this.passed && this.executed;
+    };
 
     var STEPS = [
         new Step({
@@ -110,30 +115,34 @@ angular.module('tuto').service('exercise', function ($controller) {
     }
 });
 
-angular.module('tuto').service('exerciseLauncher', function () {
-    function execTestsSteps(steps, index, prevStep) {
+angular.module('tuto').service('exerciseLauncher', function (localStorage) {
+    function execTestsSteps(steps, index) {
         var assertionFailed = [];
-        if (index === 0) {
-            if (prevStep) prevStep.active = true;
-            return;
-        }
-        var step = steps[index - 1];
+
+        if (steps.length == index) return;
+        var step = steps[index];
         var test = step.test;
         var failed = false;
 
         try {
-            test();
-            if (prevStep) prevStep.active = true;
-            return;
+            if (index < steps.length) {
+                var promiseOfTest = test();
+                if (promiseOfTest) {
+                    promiseOfTest.done(function () {
+                        execTestsSteps(steps, 1 + index);
+                    });
+                } else {
+                    execTestsSteps(steps, 1 + index);
+                }
+            }
         } catch (e) {
+            localStorage.lastRuningTestIdx = index;
             failed = true;
             if (e instanceof Failed) {
                 assertionFailed.push(e.message);
             } else {
-                assertionFailed.push("Error :" + e.message);
+                assertionFailed.push("Error: " + e.message);
             }
-
-            execTestsSteps(steps, index - 1, step);
         } finally {
             step.executed = true;
             step.passed = !failed;
