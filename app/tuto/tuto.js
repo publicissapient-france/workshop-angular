@@ -4,7 +4,7 @@ angular.module('tuto', []);
 angular.module('tuto').controller('tutoCtrl', function ($scope, exercise, exerciseLauncher) {
     $scope.steps = exercise.STEPS;
 
-    exerciseLauncher.execTestsSteps(exercise.STEPS, 0);
+    exerciseLauncher.execTestsSteps(exercise.STEPS, exercise.STEPS.length);
 });
 
 angular.module('tuto').service('exercise', function ($controller) {
@@ -20,12 +20,10 @@ angular.module('tuto').service('exercise', function ($controller) {
     Step.prototype.test = function () {
         ok(false, "Test not implemented")
     };
-    Step.prototype.passed = false;
+    Step.prototype.passed = true;
     Step.prototype.executed = false;
     Step.prototype.errors = [];
-    Step.prototype.isActive = function () {
-        return !this.passed && this.executed;
-    };
+    Step.prototype.active = false;
 
     var STEPS = [
         new Step({
@@ -51,7 +49,7 @@ angular.module('tuto').service('exercise', function ($controller) {
             test: function () {
 				ok($('#angular-app input[ng-model="query"]').length, "L'attribut ng-model avec la valeur query doit être défini au niveau du champs de recherche");
 
-				$("input").val('test');					
+                $("input").val('test');
 				$("input").trigger('input');
 				
 				ok($('#angular-app:contains("test")').length, "La valeur doit être affichée dans la page")
@@ -65,7 +63,6 @@ angular.module('tuto').service('exercise', function ($controller) {
             solutionTemplateName: "tuto/views/tutorial-solution-ds.html",
             test: function () {
 
-                // Verif contoleur
                 try {
                     LogCtrl;
                 } catch(error) {
@@ -83,8 +80,6 @@ angular.module('tuto').service('exercise', function ($controller) {
                 ok(scope.logs.length > 0, "Copier les logs depuis les explications")
 
                 console.log("Test: " + typeof(scope.logs))
-
-                //ok (LogCtrlRRRR != undefined, "Third step is failed.")
             }
         })
     ];
@@ -111,24 +106,20 @@ angular.module('tuto').service('exercise', function ($controller) {
 });
 
 angular.module('tuto').service('exerciseLauncher', function () {
-    function execTestsSteps(steps, index) {
+    function execTestsSteps(steps, index, prevStep) {
         var assertionFailed = [];
-        if (steps.length == index) return;
-        var step = steps[index];
+        if (index === 0) {
+            if (prevStep) prevStep.active = true;
+            return;
+        }
+        var step = steps[index - 1];
         var test = step.test;
         var failed = false;
 
         try {
-            if (index < steps.length) {
-                var promiseOfTest = test();
-                if (promiseOfTest) {
-                    promiseOfTest.done(function () {
-                        execTestsSteps(steps, 1 + index);
-                    });
-                } else {
-                    execTestsSteps(steps, 1 + index);
-                }
-            }
+            test();
+            if (prevStep) prevStep.active = true;
+            return;
         } catch (e) {
             failed = true;
             if (e instanceof Failed) {
@@ -136,6 +127,8 @@ angular.module('tuto').service('exerciseLauncher', function () {
             } else {
                 assertionFailed.push("Error :" + e.message);
             }
+
+            execTestsSteps(steps, index - 1, step);
         } finally {
             step.executed = true;
             step.passed = !failed;
