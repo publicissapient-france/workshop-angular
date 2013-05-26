@@ -9,6 +9,7 @@ header {
     color: #AAA;
     padding: 20px 20px;
     border-bottom: solid 1px #DDD;
+    margin-bottom: 20px;
     min-height: 30px;
 
     background-image: url("logo.png");;
@@ -23,9 +24,9 @@ header div {
 	box-shadow: inset 0 0 4px 0 rgba(0, 0, 0, 0.1);
 	border-radius: 13px;
 	background-clip: padding-box;
-	height: 30px;
-	width: 200px;
-    padding: 0 40px 0 28px;
+    height: 26px;
+    width: 200px;
+    padding: 0 20px 0 28px;
 	background-color: #ebeff1;
 	line-height: 26px;
 	background-size: 15px 15px;
@@ -36,20 +37,25 @@ header div {
 }
 
 header input {
-	background-color: #ebeff1;
+	background-color: #ebeff1 !important;
 	color: #4b5c66;
-	border: none;
-	width: 100%;
+	border: none !important;
+	width: 95%;
 	outline: none;
-	margin: 0;
-	padding: 0;
-	font-size: 100%;
+	margin: 0 0 2px 0 !important;
+	padding: 0 !important;
+	font-size: 12px !important;
+    box-shadow: inset 0 0px 0px rgba(0, 0, 0, 0.075) !important;
+}
+
+header input:focus {
+    box-shadow: inset 0 0px 0px rgba(0, 0, 0, 0.075) !important;
 }
 
 header .search_clear {
     display: block;
     position: absolute;
-    top: 4px;
+    top: 2px;
     right: 3px;
     width: 22px;
     height: 22px;
@@ -107,7 +113,9 @@ header .search_clear {
 }
 
 #content {
-    height: 300px;
+    min-height: 250px;
+    padding-bottom: 20px;
+    border-bottom: solid 1px #DDD;
 }
 
 #content table th {
@@ -115,6 +123,14 @@ header .search_clear {
     font-size: 10px;
     font-weight: normal;
     text-transform: uppercase;
+}
+
+#content table {
+    width: 80%;
+}
+
+#content table tr {
+    line-height: 40px;
 }
 
 #content table tr:nth-child(even) {
@@ -126,10 +142,11 @@ header .search_clear {
 }
 
 #content table td:nth-child(1) {
-    width: 155px;
+    width: 150px;
+    text-align: center;
 }
 
 #content table td:nth-child(2), td:nth-child(3), td:nth-child(4), td:nth-child(5), td:nth-child(6) {
-    width: 100px;
+    width: 120px;
     text-align: center;
 }
