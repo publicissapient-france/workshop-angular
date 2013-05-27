@@ -48,44 +48,44 @@ angular.module('tuto').service('exercise', function ($controller) {
             }
         }),
 		new Step({
-		    title: "Le two-way binding made in angular",
+		    title: "Le two-way data binding made in AngularJS",
             detailTemplateName: "tuto/views/tutorial-step-two-way-binding.html",
             solutionTemplateName: "tuto/views/tutorial-solution-two-way-binding.html",
             test: function () {
-				ok($('#angular-app input[ng-model="query"]').length, "L'attribut ng-model avec la valeur query doit être défini au niveau du champs de recherche");
+				ok($('#angular-app input[ng-model="query"]').length, "L'attribut ng-model avec la valeur query doit être défini au niveau du champ de recherche");
 
                 $("input").val('test');
 				$("input").trigger('input');
 				
-				ok($('#angular-app:contains("test")').length, "La valeur doit être affichée dans la page")
+				ok($('#angular-app:contains("test")').length, "La valeur du champ de recherche doit être affichée    dans la page")
 				$("input").val('')				
 				$("input").trigger('input')	
             }
         }),
         new Step({
-            title: "Créer un controlleur",
-            detailTemplateName: "tuto/views/tutorial-step-ds.html",
-            solutionTemplateName: "tuto/views/tutorial-solution-ds.html",
+            title: "Création d'un contrôleur",
+            detailTemplateName: "tuto/views/tutorial-step-creation-controleur.html",
+            solutionTemplateName: "tuto/views/tutorial-solution-creation-controleur.html",
             test: function () {
 
                 try {
                     LogCtrl;
                 } catch(error) {
-                    fail("Le controleur 'LogCtrl' n'est pas definit");
+                    fail("Le contrôleur 'LogCtrl' n'est pas defini");
                 }
 
-                ok (typeof LogCtrl == 'function', "Le controleur 'LogCtrl' doit être une fonction");
+                ok (typeof LogCtrl == 'function', "Le contrôleur 'LogCtrl' doit être une fonction");
                 ok(/.*\(.*\$scope.*\).*/.test(LogCtrl.toString()), "Le '$scope' doit être injecté dans le controleur");
 
                 var scope = {};
                 LogCtrl(scope)
 
-                ok(scope.logs != undefined, "Proprieté 'logs' n'est pas defini dans le scope");
-                ok(typeof scope.logs == 'object' && scope.logs instanceof Array, "Proprieté 'logs' doit être un tableau")
+                ok(scope.logs != undefined, "La proprieté 'logs' n'est pas defini dans le scope");
+                ok(typeof scope.logs == 'object' && scope.logs instanceof Array, "La proprieté 'logs' doit être un tableau")
                 ok(scope.logs.length === 7 && scope.logs[0].url === "http://my/site/name/for/fun/and/filtering/demonstration/ok.html",
                     "Copier les logs depuis les explications")
 
-                ok($('#angular-app[ng-controller*="LogCtrl"]').length, "Le controleur 'LogCtrl' doit être défini au niveau du div #angular-app");
+                ok($('#angular-app[ng-controller*="LogCtrl"]').length, "Le contrôleur 'LogCtrl' doit être défini au niveau du div #angular-app");
                 ok($('#angular-app:contains("http://my/site/name/for/fun/and/filtering/demonstration/ok.html")').length,
                     "Le JSON de logs doit être affiché dans la page")
 
@@ -93,15 +93,15 @@ angular.module('tuto').service('exercise', function ($controller) {
             }
         }),
         new Step({
-			title: "Mettre en forme les logs",
+			title: "Mise en forme des logs",
 			detailTemplateName: "tuto/views/tutorial-step-mise-en-forme-log.html",
 			solutionTemplateName: "tuto/views/tutorial-solution-mise-en-forme-log.html",
 			test: function () {
 				var scope = {};
                 LogCtrl(scope);
                 
-				ok(scope.logs != undefined, "Proprieté 'logs' n'est pas defini dans le scope");
-                ok(typeof scope.logs == 'object' && scope.logs instanceof Array, "Proprieté 'logs' doit être un tableau");
+				ok(scope.logs != undefined, "La proprieté 'logs' n'est pas defini dans le scope");
+                ok(typeof scope.logs == 'object' && scope.logs instanceof Array, "La proprieté 'logs' doit être un tableau");
                 ok(scope.logs.length === 7 && scope.logs[0].url === "http://my/site/name/for/fun/and/filtering/demonstration/ok.html",
                     "Copier les logs depuis les explications");
                 
