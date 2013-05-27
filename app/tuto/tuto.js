@@ -91,7 +91,26 @@ angular.module('tuto').service('exercise', function ($controller) {
 
                 console.log("Test: " + typeof(scope.logs))
             }
-        })
+        }),
+        new Step({
+			title: "Mettre en forme les logs",
+			detailTemplateName: "tuto/views/tutorial-step-mise-en-forme-log.html",
+			solutionTemplateName: "tuto/views/tutorial-solution-mise-en-forme-log.html",
+			test: function () {
+				var scope = {};
+                LogCtrl(scope);
+                
+				ok(scope.logs != undefined, "Proprieté 'logs' n'est pas defini dans le scope");
+                ok(typeof scope.logs == 'object' && scope.logs instanceof Array, "Proprieté 'logs' doit être un tableau");
+                ok(scope.logs.length === 7 && scope.logs[0].url === "http://my/site/name/for/fun/and/filtering/demonstration/ok.html",
+                    "Copier les logs depuis les explications");
+                
+				ok($("#angular-app:contains('[{')").length == 0, "Le JSON brut ne doit plus être affiché");
+				ok(/<!-- ngRepeat: .* in logs -->/.test($("#angular-app").html()), "Vous devez utiliser la directive ng-repeat pour afficher les logs");
+				ok($("#angular-app tbody tr").size() === 7, "Affichez les logs dans un tableau")
+				ok($("#angular-app tbody tr:first td").size() === 5, "Le tableau doit contenir les colonnes date, url, method, status, message")
+			}
+		})
     ];
 
     function ok(testPassed, msg) {
