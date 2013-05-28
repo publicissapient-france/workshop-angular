@@ -1,0 +1,15 @@
+Fichier workshop-angular/app/index.html
+<pre highlight conf="brush: html">
+    ...
+    <input type="text" ng-model="query" />
+    <table>
+        <tr ng-repeat="log in logs | filter: query">
+            <td>{{log.date}}</td>
+            <td>{{log.url}}</td>
+            <td>{{log.method}}</td>
+            <td>{{log.status}}</td>
+            <td>{{log.message}}</td>
+        </tr>
+    </table>
+    ...
+</pre>

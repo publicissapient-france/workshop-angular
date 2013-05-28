@@ -15,7 +15,7 @@
 <div id="angular-app" ng-app="workshop" ng-controller="LogCtrl">
 	<input type="text" ng-model="query" />
 	<table>
-		<tr ng-repeat="log in logs">
+		<tr ng-repeat="log in logs | filter: query">
             <td>{{log.date}}</td>
             <td>{{log.url}}</td>
             <td>{{log.method}}</td>

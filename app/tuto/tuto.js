@@ -56,10 +56,11 @@ angular.module('tuto').service('exercise', function ($controller) {
 
                 $("input").val('test');
 				$("input").trigger('input');
-				
-				ok($('#angular-app:contains("test")').length, "La valeur du champ de recherche doit être affichée    dans la page")
-				$("input").val('')				
-				$("input").trigger('input')	
+                var length = $('#angular-app:contains("test")').length;
+				$("input").val('');
+				$("input").trigger('input');
+
+                ok(length != 0, "La valeur du champ de recherche doit être affichée dans la page")
             }
         }),
         new Step({
@@ -106,11 +107,38 @@ angular.module('tuto').service('exercise', function ($controller) {
                     "Copier les logs depuis les explications");
                 
 				ok($("#angular-app:contains('[{')").length == 0, "Le JSON brut ne doit plus être affiché");
-				ok(/<!-- ngRepeat: .* in logs -->/.test($("#angular-app").html()), "Vous devez utiliser la directive ng-repeat pour afficher les logs");
-				ok($("#angular-app tbody tr").size() === 7, "Affichez les logs dans un tableau")
-				ok($("#angular-app tbody tr:first td").size() === 5, "Le tableau doit contenir les colonnes date, url, method, status, message")
+				ok(/<!-- ngRepeat:\s*.*\s+in\s+logs\s*-->/.test($("#angular-app").html()), "Vous devez utiliser la directive ng-repeat pour afficher les logs");
+				ok($("#angular-app tbody tr").size() === 7, "Affichez les logs dans un tableau");
+                ok($("#angular-app tbody tr:first td").size() === 5, "Le tableau doit contenir les colonnes date, url, method, status, message");
 			}
-		})
+		}),
+        new Step({
+            title: "Filtrer les logs",
+            detailTemplateName: "tuto/views/tutorial-step-filtrer-log.html",
+            solutionTemplateName: "tuto/views/tutorial-solution-filtrer-log.html",
+            test: function () {
+                ok($('#angular-app input[ng-model="query"]').length, "L'attribut ng-model avec la valeur query doit être défini au niveau du champ de recherche");
+
+                $("input").val('zhkc8fjk');
+                $("input").trigger('input');
+                var length = $('#angular-app:contains("zhkc8fjk")').length;
+                $("input").val('');
+                $("input").trigger('input');
+
+                ok(length == 0, "La valeur du champ de recherche ne doit plus être affichée dans la page");
+                var totalLogs = $("#angular-app tbody tr").size();
+                ok(totalLogs === 7, "Affichez les logs dans un tableau");
+                ok(/<!-- ngRepeat:\s*.*\s+in\s+logs\s*\|\s*filter\s*:\s*query\s*-->/.test($("#angular-app").html()), "Vous devez utiliser un filtre dans la directive ng-repeat pour afficher les logs filtrés");
+
+                $("input").val('200');
+                $("input").trigger('input');
+                var currentTotalLogs = $("#angular-app tbody tr").size();
+                $("input").val('');
+                $("input").trigger('input');
+
+                ok(totalLogs > currentTotalLogs && currentTotalLogs > 0, "Les logs doivent être filtrés avec la valeur du champ de recherche");
+            }
+        })
     ];
 
     function ok(testPassed, msg) {
