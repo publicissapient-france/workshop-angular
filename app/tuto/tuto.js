@@ -81,7 +81,7 @@ angular.module('tuto').service('exercise', function ($controller) {
                 var scope = {};
                 LogCtrl(scope)
 
-                ok(scope.logs != undefined, "La proprieté 'logs' n'est pas defini dans le scope");
+                ok(scope.logs !== undefined, "La proprieté 'logs' n'est pas defini dans le scope");
                 ok(typeof scope.logs == 'object' && scope.logs instanceof Array, "La proprieté 'logs' doit être un tableau")
                 ok(scope.logs.length === 7 && scope.logs[0].url === "http://my/site/name/for/fun/and/filtering/demonstration/ok.html",
                     "Copier les logs depuis les explications")
@@ -137,6 +137,61 @@ angular.module('tuto').service('exercise', function ($controller) {
                 $("input").trigger('input');
 
                 ok(totalLogs > currentTotalLogs && currentTotalLogs > 0, "Les logs doivent être filtrés avec la valeur du champ de recherche");
+            }
+        }),
+        new Step({
+            title: "Filtrer par statut et méthode",
+            detailTemplateName: "tuto/views/tutorial-step-filter-by-status-and-methods.html",
+            solutionTemplateName: "tuto/views/tutorial-solution-filter-by-status-and-methods.html",
+            test: function () {
+                var tuto = {
+                    status: {},
+                    methods: {}
+                };
+                var scope = {
+                    "$watch": function (watchExpression, listener, objectEquality) {
+                        if (watchExpression === 'selectedStatus') {
+                            tuto.status.watchExpression = watchExpression;
+                            tuto.status.objectEquality = objectEquality;
+                        } else if (watchExpression === 'selectedMethods') {
+                            tuto.methods.watchExpression = watchExpression;
+                            tuto.methods.objectEquality = objectEquality;
+                        }
+                    }
+                };
+                LogCtrl(scope);
+
+                // status
+                ok($(":checkbox").length >= 3, "Insérez les cases à cocher permettant de sélectionner les statuts");
+                ok(scope.selectedStatus !== undefined && scope.selectedStatus !== null && typeof scope.selectedStatus === 'object', "Le scope doit contenir un objet 'selectedStatus'");
+                ok(typeof scope.selectedStatus["200"] === 'boolean' && typeof scope.selectedStatus["404"] === 'boolean' && typeof scope.selectedStatus["500"] === 'boolean',
+                    "selectedStatus doit contenir l'état de sélection de chaque statut");
+                ok($(':checkbox[ng-model*="selectedStatus"]').length === 3, "Reliez selectedStatus aux cases à cocher via la directive 'ng-model'");
+                ok(tuto.status.watchExpression !== undefined, "Utilisez la méthode $watch du scope pour filtrer les logs à la sélection/déselection d'un statut");
+                ok(tuto.status.objectEquality, "Utilisez le paramètre objectEquality de la méthode $watch pour vérifier les changements sur selectedStatus");
+
+                var initialTotal = $("#angular-app tbody tr").size();
+                $(':checkbox[ng-model="selectedStatus[\'200\']"]').trigger("click");
+                var secondTotal = $("#angular-app tbody tr").size();
+                $(':checkbox[ng-model="selectedStatus[\'200\']"]').trigger("click");
+
+                ok(initialTotal !== secondTotal, "Les logs doivent être filtrés en fonction des statuts");
+
+                // methods
+                ok($(":checkbox").length === 7, "Insérez les cases à cocher permettant de sélectionner les méthodes");
+                ok(scope.selectedMethods !== undefined && scope.selectedMethods !== null && typeof scope.selectedMethods === 'object', "Le scope doit contenir un objet 'selectedMethods'");
+                ok(typeof scope.selectedMethods["GET"] === 'boolean' && typeof scope.selectedMethods["POST"] === 'boolean' && typeof scope.selectedMethods["PUT"] === 'boolean' && typeof scope.selectedMethods["DELETE"] === 'boolean',
+                    "selectedMethods doit contenir l'état de sélection de chaque méthode");
+                ok($(':checkbox[ng-model*="selectedMethods"]').length === 4, "Reliez selectedMethods aux cases à cocher via la directive 'ng-model'");
+                ok(tuto.methods.watchExpression !== undefined, "Utilisez la méthode $watch du scope pour filtrer les logs à la sélection/déselection d'une méthode");
+                ok(tuto.methods.objectEquality, "Utilisez le paramètre objectEquality de la méthode $watch pour vérifier les changements sur selectedMethods");
+
+                var initialTotal = $("#angular-app tbody tr").size();
+                $(':checkbox[ng-model="selectedMethods[\'GET\']"]').trigger("click");
+                var secondTotal = $("#angular-app tbody tr").size();
+                $(':checkbox[ng-model="selectedMethods[\'GET\']"]').trigger("click");
+
+                ok(initialTotal !== secondTotal, "Les logs doivent être filtrés en fonction des méthodes");
             }
         })
     ];

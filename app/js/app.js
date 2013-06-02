@@ -1,6 +1,33 @@
 var app = angular.module("workshop", []);
 
 function LogCtrl($scope) {
+    $scope.selectedStatus = {
+        "200": true,
+        "404": true,
+        "500": true
+    };
+
+    $scope.selectedMethods = {
+        "GET": true,
+        "POST": true,
+        "PUT": true,
+        "DELETE": true
+    };
+
+    function filterLogs() {
+        var result = [];
+        $scope.logs.forEach(function(log) {
+            if ($scope.selectedStatus[log.status]
+                && $scope.selectedMethods[log.method]) {
+                result.push(log);
+            }
+        });
+        $scope.selectedLogs = result;
+    }
+
+    $scope.$watch('selectedStatus', filterLogs, true);
+    $scope.$watch('selectedMethods', filterLogs, true);
+
     $scope.logs = [
         {
             "id": "1",
