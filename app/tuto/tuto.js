@@ -193,7 +193,37 @@ angular.module('tuto').service('exercise', function ($controller) {
 
                 ok(initialTotal !== secondTotal, "Les logs doivent être filtrés en fonction des méthodes");
             }
+        }),
+        new Step({
+            title: "Tronquer les URL à 15 caractères",
+            detailTemplateName: "tuto/views/tutorial-step-truncate-long-url.html",
+            solutionTemplateName: "tuto/views/tutorial-solution-truncate-long-url.html",
+            test: function () {
+                var $filter;
+                try {
+                    var elem = angular.element(document.querySelector('#angular-app'));
+                    var injector = elem.injector();
+                    $filter = injector.get('$filter');
+                    $filter('truncate');
+                } catch (e) {
+                    fail("Créez un filtre angular appelé 'truncate'");
+                }
+
+                var resultWithShortURL, resultWithLongURL;
+                try {
+                    resultWithShortURL = $filter('truncate')('shorturl');
+                    resultWithLongURL = $filter('truncate')('unelongueurljustepourtester');
+                } catch (e) {
+                    fail("Créez un filtre qui prend en parametre une string et qui retourne cette string tronquée à 15 caractères, suivie de '...'");
+                }
+
+                ok(resultWithShortURL === 'shorturl', "Si on passe 'shorturl' en paramètre du filtre, il doit retourner 'shorturl'");
+                ok(resultWithLongURL === 'unelongueurl...', "Si on passe 'unelongueurljustepourtester' en paramètre du filtre, il doit retourner 'unelongueurl... '");
+
+                ok($("#content td:contains('...')").length > 1, "Appliquez votre filter dans le template pour tronquer l'URL des logs");
+            }
         })
+
     ];
 
     function ok(testPassed, msg) {

@@ -87,3 +87,16 @@ function LogCtrl($scope) {
         }
     ];
 }
+
+app.filter('truncate', function () {
+    return function (text) {
+        var length = 15,
+            end = "...";
+
+        if (text.length <= length || text.length - end.length <= length) {
+            return text;
+        } else {
+            return String(text).substring(0, length - end.length) + end;
+        }
+    };
+});

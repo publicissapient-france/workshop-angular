@@ -1,0 +1,24 @@
+Fichier workshop-angular/app/js/app.js
+<pre highlight conf="brush: js">
+	...
+    app.filter('truncate', function () {
+        return function (text) {
+            var length = 15,
+                end = "...";
+
+            if (text.length <= length || text.length - end.length <= length) {
+                return text;
+            } else {
+                return String(text).substring(0, length - end.length) + end;
+            }
+        };
+    });
+    ...
+</pre>
+
+Fichier workshop-angular/app/index.html
+<pre highlight conf="brush: html">
+    ...
+    <td>{{log.url | truncate}}</td>
+    ...
+</pre>

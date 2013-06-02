@@ -40,7 +40,7 @@
         <table>
             <tr ng-repeat="log in selectedLogs | filter: query">
                 <td>{{log.date}}</td>
-                <td>{{log.url}}</td>
+                <td>{{log.url | truncate}}</td>
                 <td>{{log.method}}</td>
                 <td>{{log.status}}</td>
                 <td>{{log.message}}</td>
