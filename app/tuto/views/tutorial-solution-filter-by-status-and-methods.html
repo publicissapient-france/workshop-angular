@@ -16,14 +16,16 @@ Fichier workshop-angular/app/js/app.js
         };
 
         function filterLogs() {
-            var result = [];
-            $scope.logs.forEach(function(log) {
-                if ($scope.selectedStatus[log.status]
-                    && $scope.selectedMethods[log.method]) {
-                    result.push(log);
-                }
-            });
-            $scope.selectedLogs = result;
+            if ($scope.logs) {
+                var result = [];
+                $scope.logs.forEach(function(log) {
+                    if ($scope.selectedStatus[log.status]
+                        && $scope.selectedMethods[log.method]) {
+                        result.push(log);
+                    }
+                });
+                $scope.selectedLogs = result;
+            }
         }
 
         $scope.$watch('selectedStatus', filterLogs, true);

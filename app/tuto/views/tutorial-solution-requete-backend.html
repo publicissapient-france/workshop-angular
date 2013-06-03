@@ -1,0 +1,9 @@
+Fichier workshop-angular/app/js/app.js
+<pre highlight conf="brush: js">
+	...
+    function LogCtrl($scope, $http) {
+        $http.get('/logs').success(function (data) {
+            $scope.logs = data;
+        });
+    ...
+</pre>

@@ -218,12 +218,45 @@ angular.module('tuto').service('exercise', function ($controller) {
                 }
 
                 ok(resultWithShortURL === 'shorturl', "Si on passe 'shorturl' en paramètre du filtre, il doit retourner 'shorturl'");
-                ok(resultWithLongURL === 'unelongueurl...', "Si on passe 'unelongueurljustepourtester' en paramètre du filtre, il doit retourner 'unelongueurl... '");
+                ok(resultWithLongURL === 'unelongueurl...', "Si on passe 'unelongueurljustepourtester' en paramètre du filtre, il doit retourner 'unelongueurl...'");
 
-                ok($("#content td:contains('...')").length > 1, "Appliquez votre filter dans le template pour tronquer l'URL des logs");
+                ok($("#content td:contains('...')").length > 1, "Appliquez votre filtre dans le template pour tronquer l'URL des logs");
+            }
+        }),
+        new Step({
+            title: "Requeter le backend",
+            detailTemplateName: "tuto/views/tutorial-step-requete-backend.html",
+            solutionTemplateName: "tuto/views/tutorial-solution-requete-backend.html",
+            test: function () {
+                var tuto = {};
+
+                var promise = {
+                    success: function (callback) {
+                        callback('toto')
+                    },
+                    error: function () {
+
+                    }
+                };
+
+                var scope = {
+                    "$watch": function (){}
+                };
+
+                var httpService = {
+                    get: function (url) {
+                        tuto.url = url;
+                        return promise;
+                    }
+                };
+
+                LogCtrl(scope, httpService);
+                ok(/.*\(.*\$http.*\).*/.test(LogCtrl.toString()), "Le service '$http' doit être injecté dans le controleur");
+
+                ok(tuto.url === '/logs', "Requetez le endpoint '/logs'")
+                ok(scope.logs === 'toto', "Le service $http retourne une promesse, dans la méthode success, mettez à jour la propriété $scope.logs avec les données retournées par le backend. Pensez à supprimer les logs statiques");
             }
         })
-
     ];
 
     function ok(testPassed, msg) {
