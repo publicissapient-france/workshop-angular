@@ -4,6 +4,7 @@ function LogCtrl($scope, $http) {
 
     $http.get('/logs').success(function (data) {
         $scope.logs = data;
+        filterLogs();
     });
 
 
@@ -33,8 +34,8 @@ function LogCtrl($scope, $http) {
         }
     }
 
-    $scope.$watch('selectedStatus', filterLogs, true);
-    $scope.$watch('selectedMethods', filterLogs, true);
+    $scope.$watchCollection('selectedStatus', filterLogs, true);
+    $scope.$watchCollection('selectedMethods', filterLogs, true);
 }
 
 app.filter('truncate', function () {

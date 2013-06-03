@@ -149,13 +149,11 @@ angular.module('tuto').service('exercise', function ($controller) {
                     methods: {}
                 };
                 var scope = {
-                    "$watch": function (watchExpression, listener, objectEquality) {
+                    "$watchCollection": function (watchExpression, listener) {
                         if (watchExpression === 'selectedStatus') {
                             tuto.status.watchExpression = watchExpression;
-                            tuto.status.objectEquality = objectEquality;
                         } else if (watchExpression === 'selectedMethods') {
                             tuto.methods.watchExpression = watchExpression;
-                            tuto.methods.objectEquality = objectEquality;
                         }
                     }
                 };
@@ -164,11 +162,10 @@ angular.module('tuto').service('exercise', function ($controller) {
                 // status
                 ok($(":checkbox").length >= 3, "Insérez les cases à cocher permettant de sélectionner les statuts");
                 ok(scope.selectedStatus !== undefined && scope.selectedStatus !== null && typeof scope.selectedStatus === 'object', "Le scope doit contenir un objet 'selectedStatus'");
-                ok(typeof scope.selectedStatus["200"] === 'boolean' && typeof scope.selectedStatus["404"] === 'boolean' && typeof scope.selectedStatus["500"] === 'boolean',
-                    "selectedStatus doit contenir l'état de sélection de chaque statut");
+                ok(scope.selectedStatus["200"] === true && scope.selectedStatus["404"] === true && scope.selectedStatus["500"] === true,
+                    "selectedStatus doit contenir l'état de sélection de chaque statut, par défaut, toutes les cases à cocher doivent être sélectionnées");
                 ok($(':checkbox[ng-model*="selectedStatus"]').length === 3, "Reliez selectedStatus aux cases à cocher via la directive 'ng-model'");
-                ok(tuto.status.watchExpression !== undefined, "Utilisez la méthode $watch du scope pour filtrer les logs à la sélection/déselection d'un statut");
-                ok(tuto.status.objectEquality, "Utilisez le paramètre objectEquality de la méthode $watch pour vérifier les changements sur selectedStatus");
+                ok(tuto.status.watchExpression !== undefined, "Utilisez la méthode $watchCollection du scope pour filtrer les logs à la sélection/déselection d'un statut");
 
                 var initialTotal = $("#angular-app tbody tr").size();
                 $(':checkbox[ng-model="selectedStatus[\'200\']"]').trigger("click");
@@ -180,11 +177,10 @@ angular.module('tuto').service('exercise', function ($controller) {
                 // methods
                 ok($(":checkbox").length === 7, "Insérez les cases à cocher permettant de sélectionner les méthodes");
                 ok(scope.selectedMethods !== undefined && scope.selectedMethods !== null && typeof scope.selectedMethods === 'object', "Le scope doit contenir un objet 'selectedMethods'");
-                ok(typeof scope.selectedMethods["GET"] === 'boolean' && typeof scope.selectedMethods["POST"] === 'boolean' && typeof scope.selectedMethods["PUT"] === 'boolean' && typeof scope.selectedMethods["DELETE"] === 'boolean',
-                    "selectedMethods doit contenir l'état de sélection de chaque méthode");
+                ok(scope.selectedMethods["GET"] === true && scope.selectedMethods["POST"] === true && scope.selectedMethods["PUT"] === true && scope.selectedMethods["DELETE"] === true,
+                    "selectedMethods doit contenir l'état de sélection de chaque méthode, par défaut, toutes les cases à cocher doivent être sélectionnées");
                 ok($(':checkbox[ng-model*="selectedMethods"]').length === 4, "Reliez selectedMethods aux cases à cocher via la directive 'ng-model'");
-                ok(tuto.methods.watchExpression !== undefined, "Utilisez la méthode $watch du scope pour filtrer les logs à la sélection/déselection d'une méthode");
-                ok(tuto.methods.objectEquality, "Utilisez le paramètre objectEquality de la méthode $watch pour vérifier les changements sur selectedMethods");
+                ok(tuto.methods.watchExpression !== undefined, "Utilisez la méthode $watchCollection     du scope pour filtrer les logs à la sélection/déselection d'une méthode");
 
                 var initialTotal = $("#angular-app tbody tr").size();
                 $(':checkbox[ng-model="selectedMethods[\'GET\']"]').trigger("click");
@@ -232,7 +228,16 @@ angular.module('tuto').service('exercise', function ($controller) {
 
                 var promise = {
                     success: function (callback) {
-                        callback('toto')
+                        callback([
+                            {
+                                "id": "PLOP",
+                                "method": "GET",
+                                "status": "200",
+                                "message": "OK",
+                                "url": "http://my/site/name/for/fun/and/filtering/demonstration/ok.html",
+                                "date": "01/01/2013 00:00:00"
+                            }
+                        ]);
                     },
                     error: function () {
 
@@ -240,7 +245,9 @@ angular.module('tuto').service('exercise', function ($controller) {
                 };
 
                 var scope = {
-                    "$watch": function (){}
+                    "$watchCollection": function (){},
+                    selectedStatus: { "200": true},
+                    selectedMethods: { "GET": true}
                 };
 
                 var httpService = {
@@ -254,7 +261,8 @@ angular.module('tuto').service('exercise', function ($controller) {
                 ok(/.*\(.*\$http.*\).*/.test(LogCtrl.toString()), "Le service '$http' doit être injecté dans le controleur");
 
                 ok(tuto.url === '/logs', "Requetez le endpoint '/logs'")
-                ok(scope.logs === 'toto', "Le service $http retourne une promesse, dans la méthode success, mettez à jour la propriété $scope.logs avec les données retournées par le backend. Pensez à supprimer les logs statiques");
+                ok(scope.logs[0].id === 'PLOP', "Le service $http retourne une promesse, dans la méthode success, mettez à jour la propriété $scope.logs avec les données retournées par le backend. Pensez à supprimer les logs statiques");
+                ok(scope.selectedLogs !== undefined && scope.selectedLogs.length === 1, "Dans la fonction success, appelez la méthode qui permet de filtrer les logs, afin de les afficher");
             }
         })
     ];

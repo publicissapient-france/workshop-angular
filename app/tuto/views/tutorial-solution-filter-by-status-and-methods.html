@@ -28,8 +28,8 @@ Fichier workshop-angular/app/js/app.js
             }
         }
 
-        $scope.$watch('selectedStatus', filterLogs, true);
-        $scope.$watch('selectedMethods', filterLogs, true);
+        $scope.$watchCollection('selectedStatus', filterLogs);
+        $scope.$watchCollection('selectedMethods', filterLogs);
     ...
 </pre>
 
