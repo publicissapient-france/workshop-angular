@@ -1,3 +1,22 @@
 <p>
+    Il existe différente manière de filtrer des éléments avec AngularJS. Précédemment, les logs ont été filtré par <code>|</code> (pipe), où le framework nous offre la possibilité d'utiliser des filtres "built-in" ou des filtres custom.
+</p>
+
+<p>Mais il est aussi possible dans certains cas d'utilisation de faire appel à une méthode du contrôleur pour filtrer une collection d'éléments.</p>
+
+<p>
+    Dans cette étape, il va falloir créer une méthode pour filtrer les logs par méthode et status HTTP. Cette méthode sera invoquée à chaque modification d'état des différentes checkbox définies dans la vue.
+</p>
+
+<p>
+    Pour se faire, il va falloir dire au framework d'écouter les modifications d'état de nos modèles dans la vue :
+    <ul>
+        <li>Dans le fichier workshop-angular/app/js/app.js, déclarer un objet <code>selectedStatus</code> attaché au <code>$scope</code> au sein du contrôleur ayant pour clé un status HTTP (200, 400, ...) et pour valeur un booléen à <code>true</code> (par défaut, tous les filtres sont sélectionnés)</li>
+        <li>Déclarer un objet <code>selectedMethods</code> attaché au <code>$scope</code> au sein du contrôleur ayant pour clé une méthode HTTP (GET, POST, ...) et pour valeur un booléen à <code>true</code> (par défaut, tous les filtres sont sélectionnés)</li>
+        <li>Définir une function <code>filterLogs</code> qui itère sur les logs du <code>$scope</code> et alimente une nouvelle variable <code>selectedLogs</code> si le log courant match les critères de filtres (par méthode et par status) sélectionnés</li>
+        <li>Invoquer la méthode <code>$wathCollection</code> sur le <code>$scope</code> en lui passant les objets précédemment déclarés et la méthode <code>filterLogs</code> en guise de callback</li>
+        <li>Dans le fichier workshop-angular/app/index.html, ajouter l'attribut <a href="http://docs.angularjs.org/api/ng.directive:ngModel" target="_blank">ng-model</a> au niveau des différentes checkbox en faisant référence à la propriété de l'objet concerné (e.g <code>selectedMethods['GET']</code> pour le filtre sur la méthode GET)</li>
+    </ul>
 
 </p>
+

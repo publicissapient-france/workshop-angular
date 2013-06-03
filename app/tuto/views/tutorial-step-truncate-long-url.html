@@ -1,7 +1,13 @@
 <p>
-    blabla
-</p>
+    Dernière possibilité concernant les filtres : le filtre custom. Pour se faire, il faut déclarer un filtre au sein du module et l'invoquer à l'aide du <code>|</code> (pipe) dans la vue.
 
-<p>
-    blabla
+    <ul>
+        <li>Dans le fichier workshop-angular/app/js/app.js, déclarer un <a href="http://docs.angularjs.org/guide/dev_guide.templates.filters.creating_filters" target="_blank">filtre</a> <code>truncate</code> au sein du module.
+            La déclaration s'en suit avec une fonction qui prend en paramètre le texte à filtrer
+        </li>
+        <li>
+            Coder la fonction qui consiste à tronquer les URLs des logs en les limitant à <code>15</code> caractères et en leur rajoutant <code>...</code> à la fin
+        </li>
+        <li>Dans le fichier workshop-angular/app/index.html, rajouter le filtre <code>truncate</code> au niveau de l'affichage de l'URL des logs</li>
+    </ul>
 </p>

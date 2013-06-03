@@ -1,3 +1,14 @@
 <p>
-    blabla
+    AngularJS offre la possibilité de requêter un backend de différentes manières, parmi elle, on trouve le service <a href="http://docs.angularjs.org/api/ng.$http" target="_blank">$http</a>.
+</p>
+
+<p>
+    Cette étape a pour objectif de supprimer les logs déclarés en dur dans le contrôleur et de requêter un backend pour les récupérer. Pour se faire :
+
+    <ul>
+        <li>Dans le fichier workshop-angular/app/js/app.js, s'injecter le service <code>$http</code></li>
+        <li>Requêter les logs à l'URL <code>/logs</code> (prendre soin d'avoir démarrer son serveur Node (<code>node server</code> à la racine du projet avec un <code>npm install</code> au préalable pour installer les dépendances)</li>
+        <li>Stocker les logs récupérés au sein du <code>$scope</code></li>
+        <li>Invoquer la méthode <code>filterLogs</code> précédemment implémentée au cas où un filtre serait décoché</li>
+    </ul>
 </p>

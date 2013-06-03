@@ -220,7 +220,7 @@ angular.module('tuto').service('exercise', function ($controller) {
             }
         }),
         new Step({
-            title: "Requeter le backend",
+            title: "Requêter le backend",
             detailTemplateName: "tuto/views/tutorial-step-requete-backend.html",
             solutionTemplateName: "tuto/views/tutorial-solution-requete-backend.html",
             test: function () {
