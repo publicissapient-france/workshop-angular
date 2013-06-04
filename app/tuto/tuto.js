@@ -264,6 +264,31 @@ angular.module('tuto').service('exercise', function ($controller) {
                 ok(scope.logs[0].id === 'PLOP', "Le service $http retourne une promesse, dans la méthode success, mettez à jour la propriété $scope.logs avec les données retournées par le backend. Pensez à supprimer les logs statiques");
                 ok(scope.selectedLogs !== undefined && scope.selectedLogs.length === 1, "Dans la fonction success, appelez la méthode qui permet de filtrer les logs, afin de les afficher");
             }
+        }),
+        new Step({
+            title: "Utiliser le routeur",
+            detailTemplateName: "tuto/views/tutorial-step-routeur.html",
+            solutionTemplateName: "tuto/views/tutorial-solution-routeur.html",
+            test: function () {
+                var elem = angular.element(document.querySelector('#angular-app'));
+                var injector = elem.injector();
+                var routerProvider = injector.get('$route');
+                ok(routerProvider.routes['/'] !== undefined, "Configurez le $routeProvider pour définir la route '/'");
+                ok(routerProvider.routes['/'].controller === LogCtrl, "La route '/' doit être géré par LogCtrl");
+                var templateContent;
+                $.ajax({
+                    url: '/views/log-list.html',
+                    async: false
+                }).done(function (data) {
+                    templateContent = data;
+                    ok(/ng-repeat/.test(data), "Déplacez le contenu du div angular-app dans le template");
+                }).fail(function () {
+                    fail("Créez un template 'log-list.html' dans le répertoire app/views");
+                });
+                ok(routerProvider.routes['/'].templateUrl === 'views/log-list.html', "La route '/' doit affiché le template views/log-list.html");
+                ok($("#angular-app[ng-controller]").length === 0, "Supprimez la directive ng-controller du div angular-app");
+                ok($("#angular-app[ng-view]").length !== 0, "Utilisez la directive ng-view sur le div angular-app pour afficher le template correspondant à la route active");
+            }
         })
     ];
 

@@ -12,43 +12,7 @@
 <body>
 
 <div id="tutorial" ng-include="'tuto/tuto.html'"></div>
-<div id="angular-app" ng-app="workshop" ng-controller="LogCtrl">
-    <header>
-        <div>
-            <input type="text" ng-model="query" />
-        </div>
-    </header>
-
-    <div id="navigation">
-        <div>HTTP status</div>
-        <ul>
-            <li><input type="checkbox" id="200" ng-model="selectedStatus['200']"><label for="200">200</label></li>
-            <li><input type="checkbox" id="404" ng-model="selectedStatus['404']"><label for="404">404</label></li>
-            <li><input type="checkbox" id="500" ng-model="selectedStatus['500']"><label for="500">500</label></li>
-        </ul>
-        <br>
-        <div>HTTP type</div>
-        <ul>
-            <li><input type="checkbox" id="GET" ng-model="selectedMethods['GET']"><label for="GET">GET</label></li>
-            <li><input type="checkbox" id="POST" ng-model="selectedMethods['POST']"><label for="POST">POST</label></li>
-            <li><input type="checkbox" id="PUT" ng-model="selectedMethods['PUT']"><label for="PUT">PUT</label></li>
-            <li><input type="checkbox" id="DELETE" ng-model="selectedMethods['DELETE']"><label for="DELETE">DELETE</label></li>
-        </ul>
-    </div>
-
-    <div id="content">
-        <table>
-            <tr ng-repeat="log in selectedLogs | filter: query">
-                <td>{{log.date}}</td>
-                <td>{{log.url | truncate}}</td>
-                <td>{{log.method}}</td>
-                <td>{{log.status}}</td>
-                <td>{{log.message}}</td>
-            </tr>
-        </table>
-    </div>
-
-</div>
+<div id="angular-app" ng-app="workshop" ng-view></div>
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script src="lib/angular/angular.js"></script>

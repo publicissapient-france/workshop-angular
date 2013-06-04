@@ -1,62 +1,34 @@
 <header>
-    <div>
-        <form ng-submit="submit()">
-            <input type="text" ng-model="textSearchInput">
-            <a class="search_clear" ng-click="textSearchInput = ''; submit()"></a>
-        </form>
-    </div>
+   <div>
+       <input type="text" ng-model="query" />
+   </div>
 </header>
 
-<p>Welcome to Angular Workshop!</p>
-
 <div id="navigation">
-    <div>HTTP status</div>
-    <ul>
-        <li><input type="checkbox" id="200" ng-model="selectedStatus[200]"><label for="200">200</label></li>
-        <li><input type="checkbox" id="404" ng-model="selectedStatus[404]"><label for="404">404</label></li>
-        <li><input type="checkbox" id="500" ng-model="selectedStatus[500]"><label for="500">500</label></li>
-    </ul>
-    <br>
-    <div>HTTP type</div>
-    <ul>
-        <li><input type="checkbox" id="GET" ng-model="selectedMethods['GET']"><label for="GET">GET</label></li>
-        <li><input type="checkbox" id="POST" ng-model="selectedMethods['POST']"><label for="POST">POST</label></li>
-        <li><input type="checkbox" id="PUT" ng-model="selectedMethods['PUT']"><label for="PUT">PUT</label></li>
-        <li><input type="checkbox" id="DELETE" ng-model="selectedMethods['DELETE']"><label for="DELETE">DELETE</label></li>
-    </ul>
+   <div>HTTP status</div>
+   <ul>
+       <li><input type="checkbox" id="200" ng-model="selectedStatus['200']"><label for="200">200</label></li>
+       <li><input type="checkbox" id="404" ng-model="selectedStatus['404']"><label for="404">404</label></li>
+       <li><input type="checkbox" id="500" ng-model="selectedStatus['500']"><label for="500">500</label></li>
+   </ul>
+   <br>
+   <div>HTTP type</div>
+   <ul>
+       <li><input type="checkbox" id="GET" ng-model="selectedMethods['GET']"><label for="GET">GET</label></li>
+       <li><input type="checkbox" id="POST" ng-model="selectedMethods['POST']"><label for="POST">POST</label></li>
+       <li><input type="checkbox" id="PUT" ng-model="selectedMethods['PUT']"><label for="PUT">PUT</label></li>
+       <li><input type="checkbox" id="DELETE" ng-model="selectedMethods['DELETE']"><label for="DELETE">DELETE</label></li>
+   </ul>
 </div>
 
 <div id="content">
-    <table id="hor-zebra" summary="Employee Pay Sheet">
-        <thead>
-        <tr>
-            <th><a href="" ng-click="predicate = 'date'; reverse=!reverse">Date</a></th>
-            <th><a href="" ng-click="predicate = 'path'; reverse=!reverse">Path</a></th>
-            <th><a href="" ng-click="predicate = 'method'; reverse=!reverse">Method</a></th>
-            <th><a href="" ng-click="predicate = 'status'; reverse=!reverse">Status</a></th>
-            <!--<th>Size</th>-->
-            <!--<th>Time</th>-->
-            <th><a href="" ng-click="predicate = 'message'; reverse=!reverse">Message</a></th>
-        </tr>
-        </thead>
-        <tbody>
-        <!--<tr ng-repeat="log in logs | filter:textSearchInput | filter:statusFilter | filter:methodsFilter | orderBy:predicate:reverse  ">-->
-        <tr ng-repeat="log in filteredLogs | orderBy:predicate:reverse  ">
-            <td><a href="#/logs/{{log.id}}">{{log.date}}</a></td>
-            <td>{{log.url | truncate}}</td>
-            <td>{{log.method}}</td>
-            <td>{{log.status}}</td>
-            <!--<td>2898 B</td>-->
-            <!--<td>10:36</td>-->
-            <td>{{log.message}}</td>
-        </tr>
-        </tbody>
-    </table>
-</div>
-
-
-<div id="history" ng-hide="!history.length">
-    <p>History:</p>
-    <input for type="text" ng-model="searchHistory">
-    <div ng-repeat="item in history | filter:searchHistory"><a href="" ng-click="searchFromHistory(item)">{{item}}</a></div>
+   <table>
+       <tr ng-repeat="log in selectedLogs | filter: query">
+           <td>{{log.date}}</td>
+           <td>{{log.url | truncate}}</td>
+           <td>{{log.method}}</td>
+           <td>{{log.status}}</td>
+           <td>{{log.message}}</td>
+       </tr>
+   </table>
 </div>

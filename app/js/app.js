@@ -1,4 +1,8 @@
-var app = angular.module("workshop", []);
+var app = angular.module("workshop", []).
+    config(['$routeProvider', function ($routeProvider) {
+        $routeProvider.
+            when('/', {templateUrl: 'views/log-list.html', controller: LogCtrl})
+    }]);
 
 function LogCtrl($scope, $http) {
 
@@ -34,8 +38,8 @@ function LogCtrl($scope, $http) {
         }
     }
 
-    $scope.$watchCollection('selectedStatus', filterLogs, true);
-    $scope.$watchCollection('selectedMethods', filterLogs, true);
+    $scope.$watchCollection('selectedStatus', filterLogs);
+    $scope.$watchCollection('selectedMethods', filterLogs);
 }
 
 app.filter('truncate', function () {
