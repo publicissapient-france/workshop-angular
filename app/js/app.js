@@ -1,8 +1,15 @@
 var app = angular.module("workshop", []).
     config(['$routeProvider', function ($routeProvider) {
         $routeProvider.
-            when('/', {templateUrl: 'views/log-list.html', controller: LogCtrl})
+            when('/', {templateUrl: 'views/log-list.html', controller: LogCtrl}).
+            when('/logs/:logId', {templateUrl: 'views/log-details.html', controller: LogDetailCtrl })
     }]);
+
+function LogDetailCtrl($scope, $routeParams, $http) {
+    $http.get('/logs/' + $routeParams.logId).success(function (data) {
+        $scope.log = data;
+    });
+}
 
 function LogCtrl($scope, $http) {
 

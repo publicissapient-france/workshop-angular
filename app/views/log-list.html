@@ -12,7 +12,7 @@
        <li><input type="checkbox" id="500" ng-model="selectedStatus['500']"><label for="500">500</label></li>
    </ul>
    <br>
-   <div>HTTP type</div>
+   <div>HTTP method</div>
    <ul>
        <li><input type="checkbox" id="GET" ng-model="selectedMethods['GET']"><label for="GET">GET</label></li>
        <li><input type="checkbox" id="POST" ng-model="selectedMethods['POST']"><label for="POST">POST</label></li>
@@ -24,7 +24,7 @@
 <div id="content">
    <table>
        <tr ng-repeat="log in selectedLogs | filter: query">
-           <td>{{log.date}}</td>
+           <td><a href="#/logs/{{log.id}}">{{log.date}}</a></td>
            <td>{{log.url | truncate}}</td>
            <td>{{log.method}}</td>
            <td>{{log.status}}</td>

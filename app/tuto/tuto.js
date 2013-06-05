@@ -30,6 +30,17 @@ angular.module('tuto').service('exercise', function ($controller) {
         return !this.passed && this.executed;
     };
 
+    function checkUrl(url, success, fail) {
+        $.ajax({
+            url: url,
+            async: false
+        }).done(function (data) {
+                success(data);
+        }).fail(function () {
+                fail();
+        });
+    }
+
     var STEPS = [
         new Step({
             title: "Initialisation de l'application",
@@ -276,18 +287,98 @@ angular.module('tuto').service('exercise', function ($controller) {
                 ok(routerProvider.routes['/'] !== undefined, "Configurez le $routeProvider pour définir la route '/'");
                 ok(routerProvider.routes['/'].controller === LogCtrl, "La route '/' doit être géré par LogCtrl");
                 var templateContent;
-                $.ajax({
-                    url: '/views/log-list.html',
-                    async: false
-                }).done(function (data) {
+                checkUrl('/views/log-list.html', function(data) {
                     templateContent = data;
                     ok(/ng-repeat/.test(data), "Déplacez le contenu du div angular-app dans le template");
-                }).fail(function () {
+                }, function() {
                     fail("Créez un template 'log-list.html' dans le répertoire app/views");
                 });
                 ok(routerProvider.routes['/'].templateUrl === 'views/log-list.html', "La route '/' doit affiché le template views/log-list.html");
                 ok($("#angular-app[ng-controller]").length === 0, "Supprimez la directive ng-controller du div angular-app");
                 ok($("#angular-app[ng-view]").length !== 0, "Utilisez la directive ng-view sur le div angular-app pour afficher le template correspondant à la route active");
+            }
+        }),
+        new Step({
+            title: "Afficher le détail d'un log",
+            detailTemplateName: "tuto/views/tutorial-step-log-details.html",
+            solutionTemplateName: "tuto/views/tutorial-solution-log-details.html",
+            test: function () {
+
+                console.log($("body").html());
+                var templateContent;
+                checkUrl('/views/log-list.html', function(data) {
+                    templateContent = data;
+                }, function() {
+                    fail("Créez un template 'log-list.html' dans le répertoire app/views");
+                });
+
+                ok($("<div>" + templateContent + "</div>").find("#content td:first a[href^='#/logs/{{log.id}}']").length > 0, "Ajoutez un lien vers le détail sur la date de chaque log");
+
+                var elem = angular.element(document.querySelector('#angular-app'));
+                var injector = elem.injector();
+                var routerProvider = injector.get('$route');
+                ok(routerProvider.routes['/logs/:logId'] !== undefined, "Configurez le $routeProvider pour définir la route '/logs/:logId'");
+
+                checkUrl('/views/log-details.html', function(data) {
+                    templateContent = data;
+                }, function() {
+                    fail("Créez un template 'log-details.html' dans le répertoire app/views");
+                });
+
+                ok(routerProvider.routes['/logs/:logId'].templateUrl === 'views/log-details.html', "La route '/logs/:logId' doit afficher le template views/log-details.html");
+
+                try {
+                    LogDetailCtrl;
+                } catch(error) {
+                    fail("Le contrôleur 'LogDetailCtrl' n'est pas defini");
+                }
+
+                ok (typeof LogDetailCtrl == 'function', "Le contrôleur 'LogDetailCtrl' doit être une fonction");
+                ok(routerProvider.routes['/logs/:logId'].controller === LogDetailCtrl, "La route '/logs/:logId' doit être géré par LogDetailCtrl");
+                ok(/.*\(.*\$scope.*\).*/.test(LogDetailCtrl.toString()), "Le '$scope' doit être injecté dans le controleur");
+                ok(/.*\(.*\$routeParams.*\).*/.test(LogDetailCtrl.toString()), "Le '$routeParams' doit être injecté dans le controleur");
+                ok(/.*\(.*\$http.*\).*/.test(LogDetailCtrl.toString()), "Le '$http' doit être injecté dans le controleur");
+
+
+                var scope = {
+                };
+
+                var promise = {
+                    success: function (callback) {
+                        callback(
+                            {
+                                "id": "PLOP",
+                                "method": "GET",
+                                "status": "200",
+                                "message": "OK",
+                                "url": "http://my/site/name/for/fun/and/filtering/demonstration/ok.html",
+                                "date": "01/01/2013 00:00:00"
+                            }
+                        );
+                    },
+                    error: function () {
+
+                    }
+                };
+
+                var tuto = {};
+                var httpService = {
+                    get: function (url) {
+                        tuto.url = url;
+                        return promise;
+                    }
+                };
+
+                LogDetailCtrl(scope, {logId: 1}, httpService);
+                ok(tuto.url === '/logs/1', "La méthode get du service $http doit être invoqué avec l'url logs/$routeParams.logId");
+                ok(scope.log, "Le log retourné dans le backend doit être tocké dans la propriété $scope.log");
+
+                ok(/\{\{log\.date\}\}/.test(templateContent), "Affichez la date du log dans le nouveau template");
+                ok(/\{\{log\.url\}\}/.test(templateContent), "Affichez l'url du log dans le nouveau template");
+                ok(/\{\{log\.method\}\}/.test(templateContent), "Affichez la méthode du log dans le nouveau template");
+                ok(/\{\{log\.status\}\}/.test(templateContent), "Affichez le status du log dans le nouveau template");
+                ok(/\{\{log\.message\}\}/.test(templateContent), "Affichez le message du log dans le nouveau template");
+
             }
         })
     ];
