@@ -63,7 +63,7 @@ angular.module('tuto').service('exercise', function ($controller) {
             detailTemplateName: "tuto/views/tutorial-step-two-way-binding.html",
             solutionTemplateName: "tuto/views/tutorial-solution-two-way-binding.html",
             test: function () {
-				ok($('#angular-app input[ng-model="query"]').length, "L'attribut ng-model avec la valeur query doit être défini au niveau du champ de recherche");
+                ok($('#angular-app input[ng-model="query"]').length, "La directive ng-model avec la valeur query doit être utilisée sur le champ de recherche");
 
                 $("input").val('test');
 				$("input").trigger('input');
@@ -71,7 +71,7 @@ angular.module('tuto').service('exercise', function ($controller) {
 				$("input").val('');
 				$("input").trigger('input');
 
-                ok(length != 0, "La valeur du champ de recherche doit être affichée dans la page")
+                ok(length != 0, "La valeur entrée dans le champ de recherche doit être affichée dans la page")
             }
         }),
         new Step({
@@ -213,7 +213,7 @@ angular.module('tuto').service('exercise', function ($controller) {
                     $filter = injector.get('$filter');
                     $filter('truncate');
                 } catch (e) {
-                    fail("Créez un filtre angular appelé 'truncate'");
+                    fail("Créer un filtre angular appelé 'truncate'");
                 }
 
                 var resultWithShortURL, resultWithLongURL;
@@ -221,13 +221,13 @@ angular.module('tuto').service('exercise', function ($controller) {
                     resultWithShortURL = $filter('truncate')('shorturl');
                     resultWithLongURL = $filter('truncate')('unelongueurljustepourtester');
                 } catch (e) {
-                    fail("Créez un filtre qui prend en parametre une string et qui retourne cette string tronquée à 15 caractères, suivie de '...'");
+                    fail("Créer un filtre qui prend en paramètre une string et qui retourne cette string tronquée à 15 caractères, suivie de '...'");
                 }
 
                 ok(resultWithShortURL === 'shorturl', "Si on passe 'shorturl' en paramètre du filtre, il doit retourner 'shorturl'");
                 ok(resultWithLongURL === 'unelongueurl...', "Si on passe 'unelongueurljustepourtester' en paramètre du filtre, il doit retourner 'unelongueurl...'");
 
-                ok($("#content td:contains('...')").length > 1, "Appliquez votre filtre dans le template pour tronquer l'URL des logs");
+                ok($("#content td:contains('...')").length > 1, "Appliquer le filtre dans le template html pour tronquer l'URL des logs");
             }
         }),
         new Step({
@@ -269,11 +269,11 @@ angular.module('tuto').service('exercise', function ($controller) {
                 };
 
                 LogCtrl(scope, httpService);
-                ok(/.*\(.*\$http.*\).*/.test(LogCtrl.toString()), "Le service '$http' doit être injecté dans le controleur");
+                ok(/.*\(.*\$http.*\).*/.test(LogCtrl.toString()), "Le service '$http' doit être injecté dans le contrôleur");
 
-                ok(tuto.url === '/logs', "Requetez le endpoint '/logs'")
-                ok(scope.logs[0].id === 'PLOP', "Le service $http retourne une promesse, dans la méthode success, mettez à jour la propriété $scope.logs avec les données retournées par le backend. Pensez à supprimer les logs statiques");
-                ok(scope.selectedLogs !== undefined && scope.selectedLogs.length === 1, "Dans la fonction success, appelez la méthode qui permet de filtrer les logs, afin de les afficher");
+                ok(tuto.url === '/logs', "Requêter le endpoint '/logs'");
+                ok(scope.logs[0].id === 'PLOP', "Le service $http retourne une promesse, dans la fonction success, mettez à jour la propriété $scope.logs avec les données retournées par le backend. Penser à supprimer les logs statiques de l'étape précédente.");
+                ok(scope.selectedLogs !== undefined && scope.selectedLogs.length === 1, "Dans la fonction success, appelez la fonction qui permet de filtrer les logs, afin de les afficher");
             }
         }),
         new Step({
@@ -284,18 +284,18 @@ angular.module('tuto').service('exercise', function ($controller) {
                 var elem = angular.element(document.querySelector('#angular-app'));
                 var injector = elem.injector();
                 var routerProvider = injector.get('$route');
-                ok(routerProvider.routes['/'] !== undefined, "Configurez le $routeProvider pour définir la route '/'");
-                ok(routerProvider.routes['/'].controller === LogCtrl, "La route '/' doit être géré par LogCtrl");
+                ok(routerProvider.routes['/'] !== undefined, "Configurer le $routeProvider pour définir la route '/'");
+                ok(routerProvider.routes['/'].controller === LogCtrl, "La route '/' doit être gérée par LogCtrl");
                 var templateContent;
                 checkUrl('/views/log-list.html', function(data) {
                     templateContent = data;
-                    ok(/ng-repeat/.test(data), "Déplacez le contenu du div angular-app dans le template");
+                    ok(/ng-repeat/.test(data), "Déplacer le contenu du div angular-app dans le template");
                 }, function() {
-                    fail("Créez un template 'log-list.html' dans le répertoire app/views");
+                    fail("Créer un template 'log-list.html' dans le répertoire app/views");
                 });
-                ok(routerProvider.routes['/'].templateUrl === 'views/log-list.html', "La route '/' doit affiché le template views/log-list.html");
-                ok($("#angular-app[ng-controller]").length === 0, "Supprimez la directive ng-controller du div angular-app");
-                ok($("#angular-app[ng-view]").length !== 0, "Utilisez la directive ng-view sur le div angular-app pour afficher le template correspondant à la route active");
+                ok(routerProvider.routes['/'].templateUrl === 'views/log-list.html', "La route '/' doit afficher le template views/log-list.html");
+                ok($("#angular-app[ng-controller]").length === 0, "Supprimer la directive ng-controller du div angular-app");
+                ok($("#angular-app[ng-view]").length !== 0, "Utiliser la directive ng-view sur le div angular-app pour afficher le template correspondant à la route active");
             }
         }),
         new Step({
@@ -303,26 +303,24 @@ angular.module('tuto').service('exercise', function ($controller) {
             detailTemplateName: "tuto/views/tutorial-step-log-details.html",
             solutionTemplateName: "tuto/views/tutorial-solution-log-details.html",
             test: function () {
-
-                console.log($("body").html());
                 var templateContent;
                 checkUrl('/views/log-list.html', function(data) {
                     templateContent = data;
                 }, function() {
-                    fail("Créez un template 'log-list.html' dans le répertoire app/views");
+                    fail("Créer un template 'log-list.html' dans le répertoire app/views");
                 });
 
-                ok($("<div>" + templateContent + "</div>").find("#content td:first a[href^='#/logs/{{log.id}}']").length > 0, "Ajoutez un lien vers le détail sur la date de chaque log");
+                ok($("<div>" + templateContent + "</div>").find("#content td:first a[href^='#/logs/{{log.id}}']").length > 0, "Ajouter un lien vers le détail d'un log sur la date de chaque log");
 
                 var elem = angular.element(document.querySelector('#angular-app'));
                 var injector = elem.injector();
                 var routerProvider = injector.get('$route');
-                ok(routerProvider.routes['/logs/:logId'] !== undefined, "Configurez le $routeProvider pour définir la route '/logs/:logId'");
+                ok(routerProvider.routes['/logs/:logId'] !== undefined, "Configurer le $routeProvider pour définir la route '/logs/:logId'");
 
                 checkUrl('/views/log-details.html', function(data) {
                     templateContent = data;
                 }, function() {
-                    fail("Créez un template 'log-details.html' dans le répertoire app/views");
+                    fail("Créer un template 'log-details.html' dans le répertoire app/views");
                 });
 
                 ok(routerProvider.routes['/logs/:logId'].templateUrl === 'views/log-details.html', "La route '/logs/:logId' doit afficher le template views/log-details.html");
@@ -334,11 +332,10 @@ angular.module('tuto').service('exercise', function ($controller) {
                 }
 
                 ok (typeof LogDetailCtrl == 'function', "Le contrôleur 'LogDetailCtrl' doit être une fonction");
-                ok(routerProvider.routes['/logs/:logId'].controller === LogDetailCtrl, "La route '/logs/:logId' doit être géré par LogDetailCtrl");
+                ok(routerProvider.routes['/logs/:logId'].controller === LogDetailCtrl, "La route '/logs/:logId' doit être gérée par LogDetailCtrl");
                 ok(/.*\(.*\$scope.*\).*/.test(LogDetailCtrl.toString()), "Le '$scope' doit être injecté dans le controleur");
                 ok(/.*\(.*\$routeParams.*\).*/.test(LogDetailCtrl.toString()), "Le '$routeParams' doit être injecté dans le controleur");
                 ok(/.*\(.*\$http.*\).*/.test(LogDetailCtrl.toString()), "Le '$http' doit être injecté dans le controleur");
-
 
                 var scope = {
                 };
@@ -373,12 +370,11 @@ angular.module('tuto').service('exercise', function ($controller) {
                 ok(tuto.url === '/logs/1', "La méthode get du service $http doit être invoqué avec l'url logs/$routeParams.logId");
                 ok(scope.log, "Le log retourné dans le backend doit être tocké dans la propriété $scope.log");
 
-                ok(/\{\{log\.date\}\}/.test(templateContent), "Affichez la date du log dans le nouveau template");
-                ok(/\{\{log\.url\}\}/.test(templateContent), "Affichez l'url du log dans le nouveau template");
-                ok(/\{\{log\.method\}\}/.test(templateContent), "Affichez la méthode du log dans le nouveau template");
-                ok(/\{\{log\.status\}\}/.test(templateContent), "Affichez le status du log dans le nouveau template");
-                ok(/\{\{log\.message\}\}/.test(templateContent), "Affichez le message du log dans le nouveau template");
-
+                ok(/\{\{log\.date\}\}/.test(templateContent), "Afficher la date du log dans le nouveau template");
+                ok(/\{\{log\.url\}\}/.test(templateContent), "Afficher l'url du log dans le nouveau template");
+                ok(/\{\{log\.method\}\}/.test(templateContent), "Afficher la méthode du log dans le nouveau template");
+                ok(/\{\{log\.status\}\}/.test(templateContent), "Afficher le status du log dans le nouveau template");
+                ok(/\{\{log\.message\}\}/.test(templateContent), "Afficher le message du log dans le nouveau template");
             }
         })
     ];
