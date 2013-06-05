@@ -14,7 +14,7 @@
         <li>Dans le fichier workshop-angular/app/js/app.js, déclarer un objet <code>selectedStatus</code> attaché au <code>$scope</code> au sein du contrôleur ayant pour clé un status HTTP (200, 400, ...) et pour valeur un booléen à <code>true</code> (par défaut, tous les filtres sont sélectionnés)</li>
         <li>Déclarer un objet <code>selectedMethods</code> attaché au <code>$scope</code> au sein du contrôleur ayant pour clé une méthode HTTP (GET, POST, ...) et pour valeur un booléen à <code>true</code> (par défaut, tous les filtres sont sélectionnés)</li>
         <li>Définir une function <code>filterLogs</code> qui itère sur les logs du <code>$scope</code> et alimente une nouvelle collection <code>selectedLogs</code> si le log courant correspond a l'un des status et l'une des méthodes HTTP sélectionnées</li>
-        <li>Invoquer la méthode <code>$wathCollection</code> du <code>$scope</code> en lui passant les objets <code>selectedStatus</code> puis <code>selectedMethods</code> et la méthode <code>filterLogs</code> en guise de callback</li>
+        <li>Invoquer la méthode <a href="http://code.angularjs.org/1.1.5/docs/api/ng.$rootScope.Scope#$watchCollection" target="_blank">$wathCollection</a> du <code>$scope</code> en lui passant les objets <code>selectedStatus</code> puis <code>selectedMethods</code> et la méthode <code>filterLogs</code> en guise de callback</li>
         <li>Dans le fichier workshop-angular/app/index.html, ajouter l'attribut <a href="http://docs.angularjs.org/api/ng.directive:ngModel" target="_blank">ng-model</a> au niveau des différentes checkbox en faisant référence à la propriété de l'objet concerné (e.g <code>selectedMethods['GET']</code> pour le filtre sur la méthode GET)</li>
     </ul>
 
