@@ -11,6 +11,14 @@ function LogDetailCtrl($scope, $routeParams, $http) {
     });
 }
 
+app.directive('toggleVisibility', function () {
+    return function (scope, element, attr) {
+        scope.$watch(attr.toggleVisibility, function (value) {
+           value ? element.show() : element.hide()
+        });
+    }
+});
+
 function LogCtrl($scope, $http) {
 
     $http.get('/logs').success(function (data) {

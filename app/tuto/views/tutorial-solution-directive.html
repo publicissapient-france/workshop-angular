@@ -1,0 +1,19 @@
+Fichier workshop-angular/app/js/app.js
+<pre highlight conf="brush: js">
+	...
+    app.directive('toggleVisibility', function () {
+        return function (scope, element, attr) {
+            scope.$watch(attr.toggleVisibility, function (value) {
+               value ? element.show() : element.hide()
+            });
+        }
+    });
+    ...
+</pre>
+
+Fichier workshop-angular/app/views/log-list.html
+<pre highlight conf="brush: html">
+    ...
+    <h3 toggle-visibility="selectedLogs.length == 0">Aucun log correspondant</h3>
+    ...
+</pre>

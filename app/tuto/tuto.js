@@ -369,12 +369,38 @@ angular.module('tuto').service('exercise', function ($controller) {
                 LogDetailCtrl(scope, {logId: 1}, httpService);
                 ok(tuto.url === '/logs/1', "La méthode get du service $http doit être invoqué avec l'url logs/$routeParams.logId");
                 ok(scope.log, "Le log retourné dans le backend doit être tocké dans la propriété $scope.log");
-
                 ok(/\{\{log\.date\}\}/.test(templateContent), "Afficher la date du log dans le nouveau template");
                 ok(/\{\{log\.url\}\}/.test(templateContent), "Afficher l'url du log dans le nouveau template");
                 ok(/\{\{log\.method\}\}/.test(templateContent), "Afficher la méthode du log dans le nouveau template");
                 ok(/\{\{log\.status\}\}/.test(templateContent), "Afficher le status du log dans le nouveau template");
                 ok(/\{\{log\.message\}\}/.test(templateContent), "Afficher le message du log dans le nouveau template");
+            }
+        }),
+        new Step({
+            title: "Créer une directive",
+            detailTemplateName: "tuto/views/tutorial-step-directive.html",
+            solutionTemplateName: "tuto/views/tutorial-solution-directive.html",
+            test: function () {
+                checkUrl('/views/log-list.html', function(data) {
+                    ok($(data).find("*[toggle-visibility]").length > 0, "Ajouter une balise avec l'attribut 'toggle-visibility'");
+                    ok($(data).find("*[toggle-visibility*='selectedLogs.length']").length > 0, "L'attribut 'toggle-visibility' doit prendre pour valeur un test sur la taille des logs");
+                    ok($(data).find("*[toggle-visibility*='selectedLogs.length']").text().length > 0, "Ajouter un message d'avertissement au sein de cette balise");
+                });
+
+                var elem = angular.element(document.querySelector('#angular-app'));
+                var injector = elem.injector();
+                var $compile = injector.get('$compile');
+                var $rootScope = injector.get('$rootScope');
+
+                $rootScope.flagFalse = false;
+                var compiledFalse = $compile('<div ng-app="workshop"><div id="toto" toggle-visibility="flagFalse">plop</div></div>')($rootScope);
+                $rootScope.$digest();
+
+                $rootScope.flagTrue = true;
+                var compiledTrue = $compile('<div ng-app="workshop"><div id="toto" toggle-visibility="flagTrue">plop</div></div>')($rootScope);
+                $rootScope.$digest();
+
+                ok($(compiledFalse.html()).css('display') === 'none' && $(compiledTrue.html()).css('display') !== 'none', "Créer la directive toggleVisibility permettant d'afficher ou cacher un élément en fonction du booléen passé en paramètre");
             }
         })
     ];
