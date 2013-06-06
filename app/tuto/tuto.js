@@ -99,9 +99,7 @@ angular.module('tuto').service('exercise', function ($controller) {
 
                 ok($('#angular-app[ng-controller*="LogCtrl"]').length, "Le contrôleur 'LogCtrl' doit être défini au niveau du div #angular-app");
                 ok($('#angular-app:contains("http://my/site/name/for/fun/and/filtering/demonstration/ok.html")').length,
-                    "Le JSON de logs doit être affiché dans la page")
-
-                console.log("Test: " + typeof(scope.logs))
+                    "Les logs doivent être affichés dans la page")
             }
         }),
         new Step({
@@ -119,7 +117,7 @@ angular.module('tuto').service('exercise', function ($controller) {
                 
 				ok($("#angular-app:contains('[{')").length == 0, "Le JSON brut ne doit plus être affiché");
 				ok(/<!-- ngRepeat:\s*.*\s+in\s+logs\s*-->/.test($("#angular-app").html()), "Vous devez utiliser la directive ng-repeat pour afficher les logs");
-				ok($("#angular-app tbody tr").size() === 7, "Affichez les logs dans un tableau");
+				ok($("#angular-app tbody tr").size() === 7, "Afficher les logs dans un tableau");
                 ok($("#angular-app tbody tr:first td").size() === 5, "Le tableau doit contenir les colonnes date, url, method, status, message");
 			}
 		}),
@@ -138,7 +136,7 @@ angular.module('tuto').service('exercise', function ($controller) {
 
                 ok(length == 0, "La valeur du champ de recherche ne doit plus être affichée dans la page");
                 var totalLogs = $("#angular-app tbody tr").size();
-                ok(totalLogs === 7, "Affichez les logs dans un tableau");
+                ok(totalLogs === 7, "Les logs doivent être affichés dans un tableau");
                 ok(/<!-- ngRepeat:\s*.*\s+in\s+logs\s*\|\s*filter\s*:\s*query\s*-->/.test($("#angular-app").html()), "Vous devez utiliser un filtre dans la directive ng-repeat pour afficher les logs filtrés");
 
                 $("input").val('200');
