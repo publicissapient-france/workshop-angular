@@ -116,7 +116,7 @@ angular.module('tuto').service('exercise', function ($controller) {
                     "Copier les logs depuis les explications");
                 
 				ok($("#angular-app:contains('[{')").length == 0, "Le JSON brut ne doit plus être affiché");
-				ok(/<!-- ngRepeat:\s*.*\s+in\s+logs\s*-->/.test($("#angular-app").html()), "Vous devez utiliser la directive ng-repeat pour afficher les logs");
+				ok(/<!-- ngRepeat:\s*.*\s+in\s+logs\s*-->/.test($("#angular-app").html()), "Utiliser la directive ng-repeat pour afficher les logs");
 				ok($("#angular-app tbody tr").size() === 7, "Afficher les logs dans un tableau");
                 ok($("#angular-app tbody tr:first td").size() === 5, "Le tableau doit contenir les colonnes date, url, method, status, message");
 			}
@@ -137,7 +137,7 @@ angular.module('tuto').service('exercise', function ($controller) {
                 ok(length == 0, "La valeur du champ de recherche ne doit plus être affichée dans la page");
                 var totalLogs = $("#angular-app tbody tr").size();
                 ok(totalLogs === 7, "Les logs doivent être affichés dans un tableau");
-                ok(/<!-- ngRepeat:\s*.*\s+in\s+logs\s*\|\s*filter\s*:\s*query\s*-->/.test($("#angular-app").html()), "Vous devez utiliser un filtre dans la directive ng-repeat pour afficher les logs filtrés");
+                ok(/<!-- ngRepeat:\s*.*\s+in\s+logs\s*\|\s*filter\s*:\s*query\s*-->/.test($("#angular-app").html()), "Utiliser un filtre dans la directive ng-repeat pour afficher les logs filtrés");
 
                 $("input").val('200');
                 $("input").trigger('input');
@@ -169,12 +169,12 @@ angular.module('tuto').service('exercise', function ($controller) {
                 LogCtrl(scope);
 
                 // status
-                ok($(":checkbox").length >= 3, "Insérez les cases à cocher permettant de sélectionner les statuts");
+                ok($(":checkbox").length >= 3, "Insérer les cases à cocher permettant de sélectionner les statuts");
                 ok(scope.selectedStatus !== undefined && scope.selectedStatus !== null && typeof scope.selectedStatus === 'object', "Le scope doit contenir un objet 'selectedStatus'");
                 ok(scope.selectedStatus["200"] === true && scope.selectedStatus["404"] === true && scope.selectedStatus["500"] === true,
                     "selectedStatus doit contenir l'état de sélection de chaque statut, par défaut, toutes les cases à cocher doivent être sélectionnées");
-                ok($(':checkbox[ng-model*="selectedStatus"]').length === 3, "Reliez selectedStatus aux cases à cocher via la directive 'ng-model'");
-                ok(tuto.status.watchExpression !== undefined, "Utilisez la méthode $watchCollection du scope pour filtrer les logs à la sélection/déselection d'un statut");
+                ok($(':checkbox[ng-model*="selectedStatus"]').length === 3, "Relier selectedStatus aux cases à cocher via la directive 'ng-model'");
+                ok(tuto.status.watchExpression !== undefined, "Utiliser la méthode $watchCollection du scope pour filtrer les logs à la sélection/déselection d'un statut");
 
                 var initialTotal = $("#angular-app tbody tr").size();
                 $(':checkbox[ng-model="selectedStatus[\'200\']"]').trigger("click");
@@ -184,12 +184,12 @@ angular.module('tuto').service('exercise', function ($controller) {
                 ok(initialTotal !== secondTotal, "Les logs doivent être filtrés en fonction des statuts");
 
                 // methods
-                ok($(":checkbox").length === 7, "Insérez les cases à cocher permettant de sélectionner les méthodes");
+                ok($(":checkbox").length === 7, "Insérer les cases à cocher permettant de sélectionner les méthodes");
                 ok(scope.selectedMethods !== undefined && scope.selectedMethods !== null && typeof scope.selectedMethods === 'object', "Le scope doit contenir un objet 'selectedMethods'");
                 ok(scope.selectedMethods["GET"] === true && scope.selectedMethods["POST"] === true && scope.selectedMethods["PUT"] === true && scope.selectedMethods["DELETE"] === true,
                     "selectedMethods doit contenir l'état de sélection de chaque méthode, par défaut, toutes les cases à cocher doivent être sélectionnées");
-                ok($(':checkbox[ng-model*="selectedMethods"]').length === 4, "Reliez selectedMethods aux cases à cocher via la directive 'ng-model'");
-                ok(tuto.methods.watchExpression !== undefined, "Utilisez la méthode $watchCollection     du scope pour filtrer les logs à la sélection/déselection d'une méthode");
+                ok($(':checkbox[ng-model*="selectedMethods"]').length === 4, "Relier selectedMethods aux cases à cocher via la directive 'ng-model'");
+                ok(tuto.methods.watchExpression !== undefined, "Utiliser la méthode $watchCollection     du scope pour filtrer les logs à la sélection/déselection d'une méthode");
 
                 var initialTotal = $("#angular-app tbody tr").size();
                 $(':checkbox[ng-model="selectedMethods[\'GET\']"]').trigger("click");
@@ -270,8 +270,8 @@ angular.module('tuto').service('exercise', function ($controller) {
                 ok(/.*\(.*\$http.*\).*/.test(LogCtrl.toString()), "Le service '$http' doit être injecté dans le contrôleur");
 
                 ok(tuto.url === '/logs', "Requêter le endpoint '/logs'");
-                ok(scope.logs[0].id === 'PLOP', "Le service $http retourne une promesse, dans la fonction success, mettez à jour la propriété $scope.logs avec les données retournées par le backend. Penser à supprimer les logs statiques de l'étape précédente.");
-                ok(scope.selectedLogs !== undefined && scope.selectedLogs.length === 1, "Dans la fonction success, appelez la fonction qui permet de filtrer les logs, afin de les afficher");
+                ok(scope.logs[0].id === 'PLOP', "Le service $http retourne une promesse : dans la fonction success, mettre à jour la propriété $scope.logs avec les données retournées par le backend. Penser à supprimer les logs statiques de l'étape précédente.");
+                ok(scope.selectedLogs !== undefined && scope.selectedLogs.length === 1, "Dans la fonction success, appeler la fonction qui permet de filtrer les logs, afin de les afficher");
             }
         }),
         new Step({
