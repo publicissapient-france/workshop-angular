@@ -4,8 +4,8 @@ angular.module('tuto', []);
 angular.module('tuto').controller('tutoCtrl', function ($scope, exercise, exerciseLauncher, localStorage) {
     $scope.steps = exercise.STEPS;
 
-    var lastRuningTestIdx = localStorage.lastRuningTestIdx ? parseInt(localStorage.lastRuningTestIdx) : 0;
-    exerciseLauncher.execTestsSteps(exercise.STEPS, lastRuningTestIdx);
+    var lastRunningTestIdx = localStorage.lastRunningTestIdx ? parseInt(localStorage.lastRunningTestIdx) : 0;
+    exerciseLauncher.execTestsSteps(exercise.STEPS, lastRunningTestIdx);
 });
 
 angular.module('tuto').value('localStorage', window.localStorage);
@@ -95,9 +95,9 @@ angular.module('tuto').service('exercise', function ($controller) {
                 ok(scope.logs !== undefined, "La proprieté 'logs' n'est pas defini dans le scope");
                 ok(typeof scope.logs == 'object' && scope.logs instanceof Array, "La proprieté 'logs' doit être un tableau")
                 ok(scope.logs.length === 7 && scope.logs[0].url === "http://my/site/name/for/fun/and/filtering/demonstration/ok.html",
-                    "Copier les logs depuis les explications")
+                    "Copier les logs depuis le fichier workshop-angular/data/log-list.json et les assigner en dur dans la propriété $scope.logs.")
 
-                ok($('#angular-app[ng-controller*="LogCtrl"]').length, "Le contrôleur 'LogCtrl' doit être défini au niveau du div #angular-app");
+                ok($('#angular-app[ng-controller*="LogCtrl"]').length, "Le contrôleur 'LogCtrl' doit être défini au niveau du div #angular-app à l'aide de la directive ng-controller");
                 ok($('#angular-app:contains("http://my/site/name/for/fun/and/filtering/demonstration/ok.html")').length,
                     "Les logs doivent être affichés dans la page")
             }
@@ -114,11 +114,11 @@ angular.module('tuto').service('exercise', function ($controller) {
                 ok(typeof scope.logs == 'object' && scope.logs instanceof Array, "La proprieté 'logs' doit être un tableau");
                 ok(scope.logs.length === 7 && scope.logs[0].url === "http://my/site/name/for/fun/and/filtering/demonstration/ok.html",
                     "Copier les logs depuis les explications");
-                
-				ok($("#angular-app:contains('[{')").length == 0, "Le JSON brut ne doit plus être affiché");
-				ok(/<!-- ngRepeat:\s*.*\s+in\s+logs\s*-->/.test($("#angular-app").html()), "Utiliser la directive ng-repeat pour afficher les logs");
+
+				ok(/<!-- ngRepeat:\s*.*\s+in\s+logs\s*-->/.test($("#angular-app").html()), "Utiliser la directive ng-repeat pour parcourir les logs et les afficher dans un tableau");
 				ok($("#angular-app tbody tr").size() === 7, "Afficher les logs dans un tableau");
                 ok($("#angular-app tbody tr:first td").size() === 5, "Le tableau doit contenir les colonnes date, url, method, status, message");
+                ok($("#angular-app:contains('[{')").length == 0, "Le JSON brut ne doit plus être affiché");
 			}
 		}),
         new Step({
@@ -181,7 +181,7 @@ angular.module('tuto').service('exercise', function ($controller) {
                 var secondTotal = $("#angular-app tbody tr").size();
                 $(':checkbox[ng-model="selectedStatus[\'200\']"]').trigger("click");
 
-                ok(initialTotal !== secondTotal, "Les logs doivent être filtrés en fonction des statuts");
+                ok(initialTotal !== secondTotal, "Les logs doivent être filtrés en fonction des statuts, la directive ng-repeat doit itérer sur les logs filtrés");
 
                 // methods
                 ok($(":checkbox").length === 7, "Insérer les cases à cocher permettant de sélectionner les méthodes");
@@ -196,7 +196,7 @@ angular.module('tuto').service('exercise', function ($controller) {
                 var secondTotal = $("#angular-app tbody tr").size();
                 $(':checkbox[ng-model="selectedMethods[\'GET\']"]').trigger("click");
 
-                ok(initialTotal !== secondTotal, "Les logs doivent être filtrés en fonction des méthodes");
+                ok(initialTotal !== secondTotal, "Les logs doivent être filtrés en fonction des méthodes, la directive ng-repeat doit itérer sur les logs filtrés");
             }
         }),
         new Step({
@@ -293,7 +293,7 @@ angular.module('tuto').service('exercise', function ($controller) {
                 });
                 ok(routerProvider.routes['/'].templateUrl === 'views/log-list.html', "La route '/' doit afficher le template views/log-list.html");
                 ok($("#angular-app[ng-controller]").length === 0, "Supprimer la directive ng-controller du div angular-app");
-                ok($("#angular-app[ng-view]").length !== 0, "Utiliser la directive ng-view sur le div angular-app pour afficher le template correspondant à la route active");
+                ok($("#angular-app[ng-view]").length !== 0, "Utiliser la directive ng-view sur le div angular-app pour afficher le template correspondant à la route active. Le div #angular-app doit maintenant être vide.");
             }
         }),
         new Step({
@@ -445,7 +445,7 @@ angular.module('tuto').service('exerciseLauncher', function (localStorage) {
                 }
             }
         } catch (e) {
-            localStorage.lastRuningTestIdx = index;
+            localStorage.lastRunningTestIdx = index;
             failed = true;
             if (e instanceof Failed) {
                 assertionFailed.push(e.message);

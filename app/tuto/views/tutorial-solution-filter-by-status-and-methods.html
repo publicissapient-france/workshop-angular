@@ -19,8 +19,7 @@ Fichier workshop-angular/app/js/app.js
             if ($scope.logs) {
                 var result = [];
                 $scope.logs.forEach(function(log) {
-                    if ($scope.selectedStatus[log.status]
-                        && $scope.selectedMethods[log.method]) {
+                    if ($scope.selectedStatus[log.status] && $scope.selectedMethods[log.method]) {
                         result.push(log);
                     }
                 });
@@ -55,13 +54,15 @@ Fichier workshop-angular/app/index.html
 
     <div id="content">
         <table>
-            <tr ng-repeat="log in selectedLogs | filter: query">
-                <td>{{log.date}}</td>
-                <td>{{log.url}}</td>
-                <td>{{log.method}}</td>
-                <td>{{log.status}}</td>
-                <td>{{log.message}}</td>
-            </tr>
+            <tbody>
+                <tr ng-repeat="log in selectedLogs | filter: query">
+                    <td>{{log.date}}</td>
+                    <td>{{log.url}}</td>
+                    <td>{{log.method}}</td>
+                    <td>{{log.status}}</td>
+                    <td>{{log.message}}</td>
+                </tr>
+            </tbody>
         </table>
     </div>
     ...
