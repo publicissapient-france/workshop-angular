@@ -1,12 +1,14 @@
-<p>Pour finir cet atelier, nous allons vous montrer comment étendre la bibliothèque des directives d'Angular avec vos propres <a href="http://docs.angularjs.org/guide/directive" target="_blank">directives</a>.</p>
+<p>La philosophie d'AngularJS n'est pas de manipuler le DOM directement, comme à l'habitude avec des frameworks type jQuery.</p>
 
-<p>Actuellement, nous avons une liste de logs que l'on peut filtrer. Si nous activons trop de fitres, la liste n'affiche plus rien, faute d'avoir des logs compatibles avec tous les filtres. Ce que nous voulons faire, c'est afficher un message indiquant qu'aucune log ne correspond aux filtres sélectionnés. Pour celà, nous allons écrire une directive permettant de masquer l'affichage de ce message en fonction du nombre de logs affichées.</p>
+<p>Pour définir un comportement au niveau du DOM ou le transformer, AngularJS propose d'utiliser une composant appelé <a href="http://docs.angularjs.org/guide/directive" target="_blank">directive</a>.</p>
 
-<p>Pour celà:
+<p>Actuellement, l'application affiche une liste de logs filtrable. Si trop de filtres sont activés, la liste n'affiche plus rien, faute d'avoir des logs qui match tous les filtres. L'objectif est d'afficher un message indiquant qu'aucun log ne correspond aux filtres sélectionnés.</p>
+
+<p>Pour se faire, il va falloir écrire une <a href="http://docs.angularjs.org/guide/directive" target="_blank">directive</a> permettant de masquer l'affichage de ce message en fonction du nombre de logs affichés (au sein de la variable <code>selectedLogs</code>) :
     <ul>
-        <li>Dans le fichier workshop-angular/app/js/app.js, déclarer une directive <code>toggleVisibility</code> au sein du module. La déclaration s'en suit avec une fonction qui prend en paramètre le scope, une référence à l'élément html dans laquelle la directive sera appelée et un troisième paramètre qui donnera accès aux parametres de la directive.</li>
-        <li>Pour l'implémentation de cette fonction, invoquer la fonction <a href="http://code.angularjs.org/1.1.5/docs/api/ng.$rootScope.Scope#$watch" target="_blank">$watch</a> du <code>$scope</code> en lui passant l'attribut <code>toggleVisibility</code> de votre troisième paramètre puis une fonction callback.</li>
-        <li>Implementer la fonction callback pour que l'affichage de l'element html soit activé lorsque l'expression passée en paramètre de la directive équivaut à <code>true</code>.</li>
-        <li>Dans le fichier workshop-angular/app/views/log-list.html, définir un message indiquant qu'aucune log ne s'affiche dans une balise utilisant la nouvelle directive et passer en parametre de cette directive une expression qui renvoie <code>true</code> lorsque le nombre de logs affichées est égal à 0.</li>
+        <li>Dans le fichier workshop-angular/app/js/app.js, déclarer une <a href="http://docs.angularjs.org/guide/directive" target="_blank">directive</a> <code>toggleVisibility</code> au sein du module. La déclaration s'en suit avec une fonction qui prend en paramètre le scope, une référence à l'élément html dans laquelle la directive sera appelée et un troisième paramètre qui donnera accès aux paramètres de la directive</li>
+        <li>Pour l'implémentation de cette fonction, invoquer la fonction <a href="http://code.angularjs.org/1.1.5/docs/api/ng.$rootScope.Scope#$watch" target="_blank">$watch</a> du <code>$scope</code> en lui passant l'attribut <code>toggleVisibility</code> de votre troisième paramètre puis une fonction callback</li>
+        <li>Implementer la fonction callback pour que l'affichage de l'element html soit activé lorsque l'expression passée en paramètre du callback équivaut à <code>true</code></li>
+        <li>Dans le fichier workshop-angular/app/views/log-list.html, définir un message indiquant qu'aucune log ne s'affiche dans une balise utilisant la nouvelle directive et passer en paramètre de cette directive une expression qui renvoie <code>true</code> lorsque le nombre de logs affichés est égal à 0</li>
     </ul>
 </p>

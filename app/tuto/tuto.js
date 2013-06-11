@@ -375,7 +375,7 @@ angular.module('tuto').service('exercise', function ($controller) {
             }
         }),
         new Step({
-            title: "Créer une directive",
+            title: "Bonus : Créer une directive",
             detailTemplateName: "tuto/views/tutorial-step-directive.html",
             solutionTemplateName: "tuto/views/tutorial-solution-directive.html",
             test: function () {
