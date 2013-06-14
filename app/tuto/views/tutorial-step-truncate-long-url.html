@@ -1,5 +1,14 @@
 <p>
-    Dernière possibilité concernant les filtres : le filtre custom. Pour se faire, il faut déclarer un filtre au sein du module et l'invoquer à l'aide du <code>|</code> (pipe) dans la vue.
+    Le framework propose plusieurs composants fondamentaux. Parmi eux, on trouve les <a href="http://docs.angularjs.org/guide/dev_guide.templates.filters.using_filters" target="_blank">filtres</a>.
+</p>
+
+<p>
+    Un filtre permet de formatter une donnée afin de la présenter à l'utilisateur.
+    AngularJS propose "out of the box" quelques filtres : <a href="http://docs.angularjs.org/api/ng.filter:currency" target="_blank">currency</a>, <a href="http://docs.angularjs.org/api/ng.filter:date" target="_blank">date</a>, <a href="http://docs.angularjs.org/api/ng.filter:uppercase" target="_blank">uppercase</a>, <a href="http://docs.angularjs.org/api/ng.filter:orderBy" target="_blank">orderBy</a>.
+    Par exemple, <code>logs | uppercase</code> va formatter la liste de logs pour l'afficher en majuscules. Bien entendu, il est possible de <a href="http://docs.angularjs.org/guide/dev_guide.templates.filters.creating_filters" target="_blank">créer ses propres filtres</a>.
+</p>
+<p>
+    Pour ce faire, il faut déclarer un filtre au sein de notre module et l'invoquer à l'aide du <code>|</code> (pipe) dans la vue.
 
     <ul>
         <li>Dans le fichier workshop-angular/app/js/app.js, déclarer un <a href="http://docs.angularjs.org/guide/dev_guide.templates.filters.creating_filters" target="_blank">filtre</a> <code>truncate</code> au sein du module.

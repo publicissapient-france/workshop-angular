@@ -1,5 +1,5 @@
 <p>
-    Il existe différentes manières de filtrer des éléments avec AngularJS. Précédemment, les logs ont été filtrées dans la vue par <code>|</code> (pipe), où le framework nous offre la possibilité d'utiliser des filtres "built-in" ou des filtres custom.
+    Il existe différentes manières de filtrer des éléments avec AngularJS. Précédemment, les logs ont été filtrées dans la vue via la syntaxe <code>|</code> (pipe).
 </p>
 
 <p>Mais il est aussi possible de faire appel à une fonction du contrôleur pour filtrer une collection d'éléments au niveau du modèle.</p>
@@ -9,12 +9,12 @@
 </p>
 
 <p>
-    Pour ce faire, il faut permettre au contrôleur d'écouter les modifications d'état des checkbox :
+    Pour ce faire, il faut permettre au contrôleur d'écouter les modifications d'état des checkboxes :
     <ul>
         <li>Dans le fichier workshop-angular/app/js/app.js, déclarer un objet <code>selectedStatus</code> attaché au <code>$scope</code> au sein du contrôleur ayant pour clé un statut HTTP (200, 404, 500) et pour valeur un booléen à <code>true</code> (par défaut, tous les filtres sont sélectionnés)</li>
         <li>Déclarer un objet <code>selectedMethods</code> attaché au <code>$scope</code> au sein du contrôleur ayant pour clé un verbe HTTP (GET, POST, PUT, DELETE) et pour valeur un booléen à <code>true</code> (par défaut, tous les filtres sont sélectionnés)</li>
         <li>Définir une function <code>filterLogs</code> qui itère sur les logs du <code>$scope</code> et alimente une nouvelle collection <code>selectedLogs</code> si le log courant correspond à l'un des statuts et l'un des verbes HTTP sélectionnés</li>
-        <li>Invoquer la fonction <a href="http://code.angularjs.org/1.1.5/docs/api/ng.$rootScope.Scope#$watchCollection" target="_blank">$watchCollection</a> du <code>$scope</code> en lui passant les objets <code>selectedStatus</code> puis <code>selectedMethods</code> et la fonction <code>filterLogs</code> en guise de callback. De cette façon, les logs seront filtrées à chaque actions sur les checkbox</li>
+        <li>Invoquer la fonction <a href="http://code.angularjs.org/1.1.5/docs/api/ng.$rootScope.Scope#$watchCollection" target="_blank">$watchCollection</a> du <code>$scope</code> en lui passant les objets <code>selectedStatus</code> puis <code>selectedMethods</code> et la fonction <code>filterLogs</code> en guise de callback. De cette façon, les logs seront filtrées à chaque action sur les checkboxes</li>
         <li>Dans le fichier workshop-angular/app/index.html, ajouter l'attribut <a href="http://docs.angularjs.org/api/ng.directive:ngModel" target="_blank">ng-model</a> au niveau des différentes checkbox en faisant référence à la propriété de l'objet concernée (e.g <code>selectedMethods['GET']</code> pour la checkbox concernant GET)</li>
     </ul>
 </p>

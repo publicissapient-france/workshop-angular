@@ -1,10 +1,10 @@
-<p>La philosophie d'AngularJS n'est pas de manipuler le DOM directement, comme à l'habitude avec des frameworks type jQuery.</p>
+<p>La philosophie d'AngularJS n'est pas de manipuler le DOM directement, comme on peut en avoir l'habitude avec des frameworks type jQuery.</p>
 
-<p>Pour définir un comportement au niveau du DOM ou le transformer, AngularJS propose d'utiliser une composant appelé <a href="http://docs.angularjs.org/guide/directive" target="_blank">directive</a>.</p>
+<p>Pour interagir avec le DOM, AngularJS propose d'utiliser un composant appelé <a href="http://docs.angularjs.org/guide/directive" target="_blank">directive</a>.</p>
 
-<p>Actuellement, l'application affiche une liste de logs filtrable. Si trop de filtres sont activés, la liste n'affiche plus rien, faute d'avoir des logs qui match tous les filtres. L'objectif est d'afficher un message indiquant qu'aucun log ne correspond aux filtres sélectionnés.</p>
+<p>L'objectif de cette étape est d'afficher un message lorsqu'aucune log ne correspond aux filtres sélectionnés.</p>
 
-<p>Pour se faire, il va falloir écrire une <a href="http://docs.angularjs.org/guide/directive" target="_blank">directive</a> permettant de masquer l'affichage de ce message en fonction du nombre de logs affichés (au sein de la variable <code>selectedLogs</code>) :
+<p>Pour ce faire, il va falloir écrire une <a href="http://docs.angularjs.org/guide/directive" target="_blank">directive</a> permettant de masquer l'affichage de ce message en fonction du nombre de logs affichées (au sein de la variable <code>selectedLogs</code>) :
     <ul>
         <li>Dans le fichier workshop-angular/app/js/app.js, déclarer une <a href="http://docs.angularjs.org/guide/directive" target="_blank">directive</a> <code>toggleVisibility</code> au sein du module. La déclaration s'en suit avec une fonction qui prend en paramètre le scope, une référence à l'élément html dans laquelle la directive sera appelée et un troisième paramètre qui donnera accès aux paramètres de la directive</li>
         <li>Pour l'implémentation de cette fonction, invoquer la fonction <a href="http://code.angularjs.org/1.1.5/docs/api/ng.$rootScope.Scope#$watch" target="_blank">$watch</a> du <code>$scope</code> en lui passant l'attribut <code>toggleVisibility</code> de votre troisième paramètre puis une fonction callback</li>

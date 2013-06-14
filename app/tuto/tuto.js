@@ -122,6 +122,35 @@ angular.module('tuto').service('exercise', function ($controller) {
 			}
 		}),
         new Step({
+            title: "Tronquer les URL à 15 caractères",
+            detailTemplateName: "tuto/views/tutorial-step-truncate-long-url.html",
+            solutionTemplateName: "tuto/views/tutorial-solution-truncate-long-url.html",
+            test: function () {
+                var $filter;
+                try {
+                    var elem = angular.element(document.querySelector('#angular-app'));
+                    var injector = elem.injector();
+                    $filter = injector.get('$filter');
+                    $filter('truncate');
+                } catch (e) {
+                    fail("Créer un filtre angular appelé 'truncate'");
+                }
+
+                var resultWithShortURL, resultWithLongURL;
+                try {
+                    resultWithShortURL = $filter('truncate')('shorturl');
+                    resultWithLongURL = $filter('truncate')('unelongueurljustepourtester');
+                } catch (e) {
+                    fail("Créer un filtre qui prend en paramètre une string et qui retourne cette string tronquée à 15 caractères, suivie de '...'");
+                }
+
+                ok(resultWithShortURL === 'shorturl', "Si on passe 'shorturl' en paramètre du filtre, il doit retourner 'shorturl'");
+                ok(resultWithLongURL === 'unelongueurl...', "Si on passe 'unelongueurljustepourtester' en paramètre du filtre, il doit retourner 'unelongueurl...'");
+
+                ok($("#content td:contains('...')").length > 1, "Appliquer le filtre dans le template html pour tronquer l'URL des logs");
+            }
+        }),
+        new Step({
             title: "Filtrer les logs",
             detailTemplateName: "tuto/views/tutorial-step-filtrer-log.html",
             solutionTemplateName: "tuto/views/tutorial-solution-filtrer-log.html",
@@ -149,7 +178,7 @@ angular.module('tuto').service('exercise', function ($controller) {
             }
         }),
         new Step({
-            title: "Filtrer par statut et méthode",
+            title: "Filtrer par statut et verbe",
             detailTemplateName: "tuto/views/tutorial-step-filter-by-status-and-methods.html",
             solutionTemplateName: "tuto/views/tutorial-solution-filter-by-status-and-methods.html",
             test: function () {
@@ -197,35 +226,6 @@ angular.module('tuto').service('exercise', function ($controller) {
                 $(':checkbox[ng-model="selectedMethods[\'GET\']"]').trigger("click");
 
                 ok(initialTotal !== secondTotal, "Les logs doivent être filtrés en fonction des méthodes, la directive ng-repeat doit itérer sur les logs filtrés");
-            }
-        }),
-        new Step({
-            title: "Tronquer les URL à 15 caractères",
-            detailTemplateName: "tuto/views/tutorial-step-truncate-long-url.html",
-            solutionTemplateName: "tuto/views/tutorial-solution-truncate-long-url.html",
-            test: function () {
-                var $filter;
-                try {
-                    var elem = angular.element(document.querySelector('#angular-app'));
-                    var injector = elem.injector();
-                    $filter = injector.get('$filter');
-                    $filter('truncate');
-                } catch (e) {
-                    fail("Créer un filtre angular appelé 'truncate'");
-                }
-
-                var resultWithShortURL, resultWithLongURL;
-                try {
-                    resultWithShortURL = $filter('truncate')('shorturl');
-                    resultWithLongURL = $filter('truncate')('unelongueurljustepourtester');
-                } catch (e) {
-                    fail("Créer un filtre qui prend en paramètre une string et qui retourne cette string tronquée à 15 caractères, suivie de '...'");
-                }
-
-                ok(resultWithShortURL === 'shorturl', "Si on passe 'shorturl' en paramètre du filtre, il doit retourner 'shorturl'");
-                ok(resultWithLongURL === 'unelongueurl...', "Si on passe 'unelongueurljustepourtester' en paramètre du filtre, il doit retourner 'unelongueurl...'");
-
-                ok($("#content td:contains('...')").length > 1, "Appliquer le filtre dans le template html pour tronquer l'URL des logs");
             }
         }),
         new Step({
