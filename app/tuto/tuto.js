@@ -129,7 +129,14 @@ angular.module('tuto').service('exercise', function ($controller) {
 
 				ok(/<!-- ngRepeat:\s*.*\s+in\s+logs\s*-->/.test($("#angular-app").html()), "Utiliser la directive ng-repeat pour parcourir les logs et les afficher dans le tableau");
 				ok($("#angular-app tbody tr").size() === 7, "Afficher les logs dans le tableau");
-                ok($("#angular-app tbody tr:first td:first").text().length > 1, "Le tableau doit contenir les colonnes date, url, method, status, message");
+                var firstLog = $("#angular-app tbody tr:first");
+                multiple([
+                    firstLog.find("td:nth(0)").text().length > 1,
+                    firstLog.find("td:nth(1)").text().length > 1,
+                    firstLog.find("td:nth(2)").text().length > 1,
+                    firstLog.find("td:nth(3)").text().length > 1,
+                    firstLog.find("td:nth(4)").text().length > 1
+                ], "Le tableau doit afficher la date, l'url, le verbe, le statut et le message de chaque log");
                 ok($("#angular-app:contains('[{')").length == 0, "Le JSON brut ne doit plus être affiché");
 			}
 		}),
@@ -417,6 +424,18 @@ angular.module('tuto').service('exercise', function ($controller) {
         testPassed = !!testPassed;
         if (!testPassed) {
             throw new Failed(msg)
+        }
+    }
+
+    function multiple(testArray, msg) {
+        var successfulTest = 0;
+        for (var i = 0 ; i < testArray.length ; i++) {
+            if (!!testArray[i]) {
+                successfulTest++;
+            }
+        }
+        if (successfulTest < testArray.length) {
+            throw new Failed(msg + " (" + successfulTest + "/" + testArray.length + ")")
         }
     }
 
