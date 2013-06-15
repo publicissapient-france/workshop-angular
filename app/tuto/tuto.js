@@ -41,6 +41,17 @@ angular.module('tuto').service('exercise', function ($controller) {
         });
     }
 
+    var injector = {
+        get: function (service) {
+            var elem = angular.element(document.querySelector('#angular-app'));
+            var injector = elem.injector();
+            if (injector) {
+                return injector.get(service);
+            }
+            fail("Erreur lors de l'initialisation du module workshop");
+        }
+    };
+
     var STEPS = [
         new Step({
             title: "Initialisation de l'application",
@@ -127,11 +138,8 @@ angular.module('tuto').service('exercise', function ($controller) {
             detailTemplateName: "tuto/views/tutorial-step-truncate-long-url.html",
             solutionTemplateName: "tuto/views/tutorial-solution-truncate-long-url.html",
             test: function () {
-                var $filter;
+                var $filter = injector.get('$filter');
                 try {
-                    var elem = angular.element(document.querySelector('#angular-app'));
-                    var injector = elem.injector();
-                    $filter = injector.get('$filter');
                     $filter('truncate');
                 } catch (e) {
                     fail("Créer un filtre angular appelé 'truncate'");
@@ -285,8 +293,6 @@ angular.module('tuto').service('exercise', function ($controller) {
             detailTemplateName: "tuto/views/tutorial-step-routeur.html",
             solutionTemplateName: "tuto/views/tutorial-solution-routeur.html",
             test: function () {
-                var elem = angular.element(document.querySelector('#angular-app'));
-                var injector = elem.injector();
                 var routerProvider = injector.get('$route');
                 ok(routerProvider.routes['/'] !== undefined, "Configurer le $routeProvider pour définir la route '/'");
                 ok(routerProvider.routes['/'].controller === LogCtrl, "La route '/' doit être gérée par LogCtrl");
@@ -307,22 +313,16 @@ angular.module('tuto').service('exercise', function ($controller) {
             detailTemplateName: "tuto/views/tutorial-step-log-details.html",
             solutionTemplateName: "tuto/views/tutorial-solution-log-details.html",
             test: function () {
-                var templateContent;
                 checkUrl('/views/log-list.html', function(data) {
-                    templateContent = data;
+                    ok($("<div>" + data + "</div>").find("#content td:first a[href^='#/logs/{{log.id}}']").length > 0, "Ajouter un lien vers le détail d'une log sur la date de chaque log");
                 }, function() {
                     fail("Créer un template 'log-list.html' dans le répertoire app/views");
                 });
 
-                ok($("<div>" + templateContent + "</div>").find("#content td:first a[href^='#/logs/{{log.id}}']").length > 0, "Ajouter un lien vers le détail d'une log sur la date de chaque log");
-
-                var elem = angular.element(document.querySelector('#angular-app'));
-                var injector = elem.injector();
                 var routerProvider = injector.get('$route');
                 ok(routerProvider.routes['/logs/:logId'] !== undefined, "Configurer le $routeProvider pour définir la route '/logs/:logId'");
 
                 checkUrl('/views/log-details.html', function(data) {
-                    templateContent = data;
                 }, function() {
                     fail("Créer un template 'log-details.html' dans le répertoire app/views");
                 });
@@ -396,8 +396,6 @@ angular.module('tuto').service('exercise', function ($controller) {
                     ok($(data).find("*[toggle-visibility*='selectedLogs.length']").text().length > 0, "Ajouter un message d'avertissement au sein de cette balise");
                 });
 
-                var elem = angular.element(document.querySelector('#angular-app'));
-                var injector = elem.injector();
                 var $compile = injector.get('$compile');
                 var $rootScope = injector.get('$rootScope');
 
