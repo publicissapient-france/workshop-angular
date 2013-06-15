@@ -52,6 +52,10 @@ angular.module('tuto').service('exercise', function ($controller) {
         }
     };
 
+    function withRoot(data) {
+        return $("<div>" + data + "</div>");
+    }
+
     var STEPS = [
         new Step({
             title: "Initialisation de l'application",
@@ -303,9 +307,7 @@ angular.module('tuto').service('exercise', function ($controller) {
                 var routerProvider = injector.get('$route');
                 ok(routerProvider.routes['/'] !== undefined, "Configurer le $routeProvider pour définir la route '/'");
                 ok(routerProvider.routes['/'].controller === LogCtrl, "La route '/' doit être gérée par LogCtrl");
-                var templateContent;
                 checkUrl('/views/log-list.html', function(data) {
-                    templateContent = data;
                     ok(/ng-repeat/.test(data), "Déplacer le contenu du div angular-app dans le template views/log-list.html");
                 }, function() {
                     fail("Créer un template 'log-list.html' dans le répertoire app/views");
@@ -321,7 +323,7 @@ angular.module('tuto').service('exercise', function ($controller) {
             solutionTemplateName: "tuto/views/tutorial-solution-log-details.html",
             test: function () {
                 checkUrl('/views/log-list.html', function(data) {
-                    ok($("<div>" + data + "</div>").find("#content td:first a[href^='#/logs/{{log.id}}']").length > 0, "Ajouter un lien vers le détail d'une log sur la date de chaque log");
+                    ok(withRoot(data).find("#content td:first a[href^='#/logs/{{log.id}}']").length > 0, "Ajouter un lien vers le détail d'une log sur la date de chaque log");
                 }, function() {
                     fail("Créer un template 'log-list.html' dans le répertoire app/views");
                 });
@@ -332,7 +334,7 @@ angular.module('tuto').service('exercise', function ($controller) {
                 var templateContent = '';
 
                 checkUrl('/views/log-details.html', function(data) {
-                    templateContent = data;
+                    templateContent = withRoot(data);
                 }, function() {
                     fail("Créer un template 'log-details.html' dans le répertoire app/views");
                 });
@@ -405,9 +407,10 @@ angular.module('tuto').service('exercise', function ($controller) {
             solutionTemplateName: "tuto/views/tutorial-solution-directive.html",
             test: function () {
                 checkUrl('/views/log-list.html', function(data) {
-                    ok($(data).find("*[toggle-visibility]").length > 0, "Ajouter une balise avec l'attribut 'toggle-visibility' dans le div #content du template views/log-list.html");
-                    ok($(data).find("*[toggle-visibility*='selectedLogs.length']").length > 0, "L'attribut 'toggle-visibility' doit prendre pour valeur un test sur la taille des logs sélectionnées");
-                    ok($(data).find("*[toggle-visibility*='selectedLogs.length']").text().length > 0, "Ajouter un message d'avertissement au sein de cette balise");
+                    var templateContent = withRoot(data);
+                    ok(templateContent.find("*[toggle-visibility]").length > 0, "Ajouter une balise avec l'attribut 'toggle-visibility' dans le div #content du template views/log-list.html");
+                    ok(templateContent.find("*[toggle-visibility*='selectedLogs.length']").length > 0, "L'attribut 'toggle-visibility' doit prendre pour valeur un test sur la taille des logs sélectionnées");
+                    ok(templateContent.find("*[toggle-visibility*='selectedLogs.length']").text().length > 0, "Ajouter un message d'avertissement au sein de cette balise");
                 });
 
                 var $compile = injector.get('$compile');
