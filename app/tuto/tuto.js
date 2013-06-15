@@ -329,7 +329,10 @@ angular.module('tuto').service('exercise', function ($controller) {
                 var routerProvider = injector.get('$route');
                 ok(routerProvider.routes['/logs/:logId'] !== undefined, "Configurer le $routeProvider pour définir la route '/logs/:logId'");
 
+                var templateContent = '';
+
                 checkUrl('/views/log-details.html', function(data) {
+                    templateContent = data;
                 }, function() {
                     fail("Créer un template 'log-details.html' dans le répertoire app/views");
                 });
@@ -344,9 +347,11 @@ angular.module('tuto').service('exercise', function ($controller) {
 
                 ok (typeof LogDetailCtrl == 'function', "Le contrôleur 'LogDetailCtrl' doit être une fonction");
                 ok(routerProvider.routes['/logs/:logId'].controller === LogDetailCtrl, "La route '/logs/:logId' doit être gérée par LogDetailCtrl");
-                ok(/.*\(.*\$scope.*\).*/.test(LogDetailCtrl.toString()), "Le '$scope' doit être injecté dans le contrôleur");
-                ok(/.*\(.*\$routeParams.*\).*/.test(LogDetailCtrl.toString()), "Le '$routeParams' doit être injecté dans le contrôleur");
-                ok(/.*\(.*\$http.*\).*/.test(LogDetailCtrl.toString()), "Le '$http' doit être injecté dans le contrôleur");
+                multiple([
+                    /.*\(.*\$scope.*\).*/.test(LogDetailCtrl.toString()),
+                    /.*\(.*\$routeParams.*\).*/.test(LogDetailCtrl.toString()),
+                    /.*\(.*\$http.*\).*/.test(LogDetailCtrl.toString())
+                ], "Injecter dans le contrôleur les services '$scope', '$routeParams' et '$http'");
 
                 var scope = {
                 };
@@ -383,13 +388,15 @@ angular.module('tuto').service('exercise', function ($controller) {
                 };
 
                 LogDetailCtrl(scope, {logId: 1}, httpService);
-                ok(tuto.url === '/logs/1', "Le service $http doit recupérer la log via un get sur l'url /logs/$routeParams.logId");
+                ok(tuto.url === '/logs/1', "Le service $http doit récupérer la log via un get sur l'url '/logs/$routeParams.logId'");
                 ok(scope.log, "La log retournée par le backend doit être stockée dans la propriété $scope.log");
-                ok(/\{\{log\.date\}\}/.test(templateContent), "Afficher la date de la log dans le nouveau template");
-                ok(/\{\{log\.url\}\}/.test(templateContent), "Afficher l'url de la log dans le nouveau template");
-                ok(/\{\{log\.method\}\}/.test(templateContent), "Afficher la méthode de la log dans le nouveau template");
-                ok(/\{\{log\.status\}\}/.test(templateContent), "Afficher le status de la log dans le nouveau template");
-                ok(/\{\{log\.message\}\}/.test(templateContent), "Afficher le message de la log dans le nouveau template");
+                multiple([
+                    /\{\{log\.date\}\}/.test(templateContent),
+                    /\{\{log\.url\}\}/.test(templateContent),
+                    /\{\{log\.method\}\}/.test(templateContent),
+                    /\{\{log\.status\}\}/.test(templateContent),
+                    /\{\{log\.message\}\}/.test(templateContent)
+                ], "Afficher dans le nouveau template la date, l'url, le verbe, le statut et le message de la log");
             }
         }),
         new Step({

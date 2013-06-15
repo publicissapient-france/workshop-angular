@@ -7,7 +7,7 @@
   <ul>
     <li>Dans le fichier workshop-angular/app/js/app.js, déclarer une nouvelle route au niveau du routeur qui match l'URL <code>/logs/:logId</code> avec le template <code>views/log-details.html</code> et géree par le contrôleur <code>LogDetailCtrl</code></li>
     <li>Déclarer un contrôleur <code>LogDetailCtrl</code> qui prend en paramètre <code>$scope</code>, <code>$routeParams</code> et <code>$http</code></li>
-    <li>Au sein du contrôleur, invoquer le backend à l'URL <code>/logs/logId</code> où <code>logId</code> correspond au paramètre logId extrait du service <code>$routeParams</code></li> et stocker le résultat de l'appel dans la propriété <code>log</code> de l'objet <code>$scope</code></li>
+    <li>Au sein du contrôleur, invoquer le backend à l'URL <code>/logs/logId</code> où <code>logId</code> correspond au paramètre logId extrait du service <a href="http://docs.angularjs.org/api/ng.$routeParams" target="_blank">$routeParams</a></li> et stocker le résultat de l'appel dans la propriété <code>log</code> de l'objet <code>$scope</code></li>
     <li>Dans le fichier workshop-angular/views.log-list.html, rajouter sur les dates des logs un lien pointant vers la nouvelle route.</li>
     <li>Dans le fichier workshop-angular/views.log-details.html, afficher dans le tableau les différentes informations de la log (date, url, method, status, message)</li>
   </ul>
