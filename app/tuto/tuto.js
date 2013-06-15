@@ -260,11 +260,15 @@ angular.module('tuto').service('exercise', function ($controller) {
                     selectedMethods: { "GET": true}
                 };
 
-                var httpService = {
-                    get: function (url) {
-                        tuto.url = url;
-                        return promise;
+                var httpService = function(config) {
+                    if (config && config.method === 'GET') {
+                        tuto.url = config.url;
                     }
+                    return promise;
+                };
+                httpService['get'] = function (url) {
+                    tuto.url = url;
+                    return promise;
                 };
 
                 LogCtrl(scope, httpService);
@@ -359,11 +363,15 @@ angular.module('tuto').service('exercise', function ($controller) {
                 };
 
                 var tuto = {};
-                var httpService = {
-                    get: function (url) {
-                        tuto.url = url;
-                        return promise;
+                var httpService = function(config) {
+                    if (config && config.method === 'GET') {
+                        tuto.url = config.url;
                     }
+                    return promise;
+                };
+                httpService['get'] = function (url) {
+                    tuto.url = url;
+                    return promise;
                 };
 
                 LogDetailCtrl(scope, {logId: 1}, httpService);
