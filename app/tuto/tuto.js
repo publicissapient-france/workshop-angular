@@ -63,7 +63,7 @@ angular.module('tuto').service('exercise', function ($controller) {
             detailTemplateName: "tuto/views/tutorial-step-two-way-binding.html",
             solutionTemplateName: "tuto/views/tutorial-solution-two-way-binding.html",
             test: function () {
-                ok($('#angular-app input[ng-model="query"]').length, "La directive ng-model avec la valeur query doit être utilisée sur le champ de recherche");
+                ok($('#angular-app input[ng-model="query"]').length, "Ajouter au champ de recherche l'attribut ng-model avec la valeur query");
 
                 $("input").val('test');
 				$("input").trigger('input');
@@ -83,21 +83,21 @@ angular.module('tuto').service('exercise', function ($controller) {
                 try {
                     LogCtrl;
                 } catch(error) {
-                    fail("Le contrôleur 'LogCtrl' n'est pas defini");
+                    fail("Le contrôleur 'LogCtrl' n'est pas défini");
                 }
 
                 ok (typeof LogCtrl == 'function', "Le contrôleur 'LogCtrl' doit être une fonction");
-                ok(/.*\(.*\$scope.*\).*/.test(LogCtrl.toString()), "Le '$scope' doit être injecté dans le controleur");
+                ok(/.*\(.*\$scope.*\).*/.test(LogCtrl.toString()), "Le '$scope' doit être injecté dans le contrôleur");
 
                 var scope = {};
                 LogCtrl(scope)
 
-                ok(scope.logs !== undefined, "La proprieté 'logs' n'est pas defini dans le scope");
-                ok(typeof scope.logs == 'object' && scope.logs instanceof Array, "La proprieté 'logs' doit être un tableau")
+                ok(scope.logs !== undefined, "La proprieté 'logs' n'est pas définie dans le scope");
+                ok(typeof scope.logs == 'object' && scope.logs instanceof Array, "La proprieté 'logs' doit être un tableau");
                 ok(scope.logs.length === 7 && scope.logs[0].url === "http://my/site/name/for/fun/and/filtering/demonstration/ok.html",
-                    "Copier les logs depuis le fichier workshop-angular/data/log-list.json et les assigner en dur dans la propriété $scope.logs.")
+                    "Copier les logs depuis le fichier workshop-angular/data/log-list.json et les assigner en dur dans la propriété $scope.logs");
 
-                ok($('#angular-app[ng-controller*="LogCtrl"]').length, "Le contrôleur 'LogCtrl' doit être défini au niveau du div #angular-app à l'aide de la directive ng-controller");
+                ok($('#angular-app[ng-controller*="LogCtrl"]').length, "Le contrôleur 'LogCtrl' doit être défini au niveau du div #angular-app à l'aide de l'attribut ng-controller");
                 ok($('#angular-app:contains("http://my/site/name/for/fun/and/filtering/demonstration/ok.html")').length,
                     "Les logs doivent être affichés dans la page")
             }
@@ -110,7 +110,7 @@ angular.module('tuto').service('exercise', function ($controller) {
 				var scope = {};
                 LogCtrl(scope);
                 
-				ok(scope.logs != undefined, "La proprieté 'logs' n'est pas defini dans le scope");
+				ok(scope.logs != undefined, "La proprieté 'logs' n'est pas définie dans le scope");
                 ok(typeof scope.logs == 'object' && scope.logs instanceof Array, "La proprieté 'logs' doit être un tableau");
                 ok(scope.logs.length === 7 && scope.logs[0].url === "http://my/site/name/for/fun/and/filtering/demonstration/ok.html",
                     "Copier les logs depuis les explications");
@@ -166,7 +166,7 @@ angular.module('tuto').service('exercise', function ($controller) {
                 ok(length == 0, "La valeur du champ de recherche ne doit plus être affichée dans la page");
                 var totalLogs = $("#angular-app tbody tr").size();
                 ok(totalLogs === 7, "Les logs doivent être affichés dans un tableau");
-                ok(/<!-- ngRepeat:\s*.*\s+in\s+logs\s*\|\s*filter\s*:\s*query\s*-->/.test($("#angular-app").html()), "Utiliser un filtre dans la directive ng-repeat pour afficher les logs filtrés");
+                ok(/<!-- ngRepeat:\s*.*\s+in\s+logs\s*\|\s*filter\s*:\s*query\s*-->/.test($("#angular-app").html()), "Utiliser un filtre dans la directive ng-repeat pour afficher les logs filtrées");
 
                 $("input").val('200');
                 $("input").trigger('input');
@@ -174,7 +174,7 @@ angular.module('tuto').service('exercise', function ($controller) {
                 $("input").val('');
                 $("input").trigger('input');
 
-                ok(totalLogs > currentTotalLogs && currentTotalLogs > 0, "Les logs doivent être filtrés avec la valeur du champ de recherche");
+                ok(totalLogs > currentTotalLogs && currentTotalLogs > 0, "Les logs doivent être filtrées avec la valeur du champ de recherche");
             }
         }),
         new Step({
@@ -187,7 +187,7 @@ angular.module('tuto').service('exercise', function ($controller) {
                     methods: {}
                 };
                 var scope = {
-                    "$watchCollection": function (watchExpression, listener) {
+                    "$watchCollection": function (watchExpression) {
                         if (watchExpression === 'selectedStatus') {
                             tuto.status.watchExpression = watchExpression;
                         } else if (watchExpression === 'selectedMethods') {
@@ -210,22 +210,22 @@ angular.module('tuto').service('exercise', function ($controller) {
                 var secondTotal = $("#angular-app tbody tr").size();
                 $(':checkbox[ng-model="selectedStatus[\'200\']"]').trigger("click");
 
-                ok(initialTotal !== secondTotal, "Les logs doivent être filtrés en fonction des statuts, la directive ng-repeat doit itérer sur les logs filtrés");
+                ok(initialTotal !== secondTotal, "Les logs doivent être filtrées en fonction des statuts, la directive ng-repeat doit itérer sur les logs filtrées");
 
                 // methods
-                ok($(":checkbox").length === 7, "Insérer les cases à cocher permettant de sélectionner les méthodes");
+                ok($(":checkbox").length === 7, "Insérer les cases à cocher permettant de sélectionner les verbes");
                 ok(scope.selectedMethods !== undefined && scope.selectedMethods !== null && typeof scope.selectedMethods === 'object', "Le scope doit contenir un objet 'selectedMethods'");
                 ok(scope.selectedMethods["GET"] === true && scope.selectedMethods["POST"] === true && scope.selectedMethods["PUT"] === true && scope.selectedMethods["DELETE"] === true,
-                    "selectedMethods doit contenir l'état de sélection de chaque méthode, par défaut, toutes les cases à cocher doivent être sélectionnées");
+                    "selectedMethods doit contenir l'état de sélection de chaque verbe, par défaut, toutes les cases à cocher doivent être sélectionnées");
                 ok($(':checkbox[ng-model*="selectedMethods"]').length === 4, "Relier selectedMethods aux cases à cocher via la directive 'ng-model'");
-                ok(tuto.methods.watchExpression !== undefined, "Utiliser la méthode $watchCollection     du scope pour filtrer les logs à la sélection/déselection d'une méthode");
+                ok(tuto.methods.watchExpression !== undefined, "Utiliser la méthode $watchCollection     du scope pour filtrer les logs à la sélection/déselection d'un verbe");
 
                 var initialTotal = $("#angular-app tbody tr").size();
                 $(':checkbox[ng-model="selectedMethods[\'GET\']"]').trigger("click");
                 var secondTotal = $("#angular-app tbody tr").size();
                 $(':checkbox[ng-model="selectedMethods[\'GET\']"]').trigger("click");
 
-                ok(initialTotal !== secondTotal, "Les logs doivent être filtrés en fonction des méthodes, la directive ng-repeat doit itérer sur les logs filtrés");
+                ok(initialTotal !== secondTotal, "Les logs doivent être filtrées en fonction des verbes, la directive ng-repeat doit itérer sur les logs filtrées");
             }
         }),
         new Step({
@@ -287,7 +287,7 @@ angular.module('tuto').service('exercise', function ($controller) {
                 var templateContent;
                 checkUrl('/views/log-list.html', function(data) {
                     templateContent = data;
-                    ok(/ng-repeat/.test(data), "Déplacer le contenu du div angular-app dans le template");
+                    ok(/ng-repeat/.test(data), "Déplacer le contenu du div angular-app dans le template views/log-list.html");
                 }, function() {
                     fail("Créer un template 'log-list.html' dans le répertoire app/views");
                 });
@@ -297,7 +297,7 @@ angular.module('tuto').service('exercise', function ($controller) {
             }
         }),
         new Step({
-            title: "Afficher le détail d'un log",
+            title: "Afficher le détail d'une log",
             detailTemplateName: "tuto/views/tutorial-step-log-details.html",
             solutionTemplateName: "tuto/views/tutorial-solution-log-details.html",
             test: function () {
@@ -308,7 +308,7 @@ angular.module('tuto').service('exercise', function ($controller) {
                     fail("Créer un template 'log-list.html' dans le répertoire app/views");
                 });
 
-                ok($("<div>" + templateContent + "</div>").find("#content td:first a[href^='#/logs/{{log.id}}']").length > 0, "Ajouter un lien vers le détail d'un log sur la date de chaque log");
+                ok($("<div>" + templateContent + "</div>").find("#content td:first a[href^='#/logs/{{log.id}}']").length > 0, "Ajouter un lien vers le détail d'une log sur la date de chaque log");
 
                 var elem = angular.element(document.querySelector('#angular-app'));
                 var injector = elem.injector();
@@ -326,14 +326,14 @@ angular.module('tuto').service('exercise', function ($controller) {
                 try {
                     LogDetailCtrl;
                 } catch(error) {
-                    fail("Le contrôleur 'LogDetailCtrl' n'est pas defini");
+                    fail("Le contrôleur 'LogDetailCtrl' n'est pas défini");
                 }
 
                 ok (typeof LogDetailCtrl == 'function', "Le contrôleur 'LogDetailCtrl' doit être une fonction");
                 ok(routerProvider.routes['/logs/:logId'].controller === LogDetailCtrl, "La route '/logs/:logId' doit être gérée par LogDetailCtrl");
-                ok(/.*\(.*\$scope.*\).*/.test(LogDetailCtrl.toString()), "Le '$scope' doit être injecté dans le controleur");
-                ok(/.*\(.*\$routeParams.*\).*/.test(LogDetailCtrl.toString()), "Le '$routeParams' doit être injecté dans le controleur");
-                ok(/.*\(.*\$http.*\).*/.test(LogDetailCtrl.toString()), "Le '$http' doit être injecté dans le controleur");
+                ok(/.*\(.*\$scope.*\).*/.test(LogDetailCtrl.toString()), "Le '$scope' doit être injecté dans le contrôleur");
+                ok(/.*\(.*\$routeParams.*\).*/.test(LogDetailCtrl.toString()), "Le '$routeParams' doit être injecté dans le contrôleur");
+                ok(/.*\(.*\$http.*\).*/.test(LogDetailCtrl.toString()), "Le '$http' doit être injecté dans le contrôleur");
 
                 var scope = {
                 };
@@ -365,13 +365,13 @@ angular.module('tuto').service('exercise', function ($controller) {
                 };
 
                 LogDetailCtrl(scope, {logId: 1}, httpService);
-                ok(tuto.url === '/logs/1', "La méthode get du service $http doit être invoqué avec l'url logs/$routeParams.logId");
-                ok(scope.log, "Le log retourné dans le backend doit être tocké dans la propriété $scope.log");
-                ok(/\{\{log\.date\}\}/.test(templateContent), "Afficher la date du log dans le nouveau template");
-                ok(/\{\{log\.url\}\}/.test(templateContent), "Afficher l'url du log dans le nouveau template");
-                ok(/\{\{log\.method\}\}/.test(templateContent), "Afficher la méthode du log dans le nouveau template");
-                ok(/\{\{log\.status\}\}/.test(templateContent), "Afficher le status du log dans le nouveau template");
-                ok(/\{\{log\.message\}\}/.test(templateContent), "Afficher le message du log dans le nouveau template");
+                ok(tuto.url === '/logs/1', "Le service $http doit recupérer la log via un get sur l'url /logs/$routeParams.logId");
+                ok(scope.log, "La log retournée par le backend doit être stockée dans la propriété $scope.log");
+                ok(/\{\{log\.date\}\}/.test(templateContent), "Afficher la date de la log dans le nouveau template");
+                ok(/\{\{log\.url\}\}/.test(templateContent), "Afficher l'url de la log dans le nouveau template");
+                ok(/\{\{log\.method\}\}/.test(templateContent), "Afficher la méthode de la log dans le nouveau template");
+                ok(/\{\{log\.status\}\}/.test(templateContent), "Afficher le status de la log dans le nouveau template");
+                ok(/\{\{log\.message\}\}/.test(templateContent), "Afficher le message de la log dans le nouveau template");
             }
         }),
         new Step({
@@ -380,8 +380,8 @@ angular.module('tuto').service('exercise', function ($controller) {
             solutionTemplateName: "tuto/views/tutorial-solution-directive.html",
             test: function () {
                 checkUrl('/views/log-list.html', function(data) {
-                    ok($(data).find("*[toggle-visibility]").length > 0, "Ajouter une balise avec l'attribut 'toggle-visibility'");
-                    ok($(data).find("*[toggle-visibility*='selectedLogs.length']").length > 0, "L'attribut 'toggle-visibility' doit prendre pour valeur un test sur la taille des logs");
+                    ok($(data).find("*[toggle-visibility]").length > 0, "Ajouter une balise avec l'attribut 'toggle-visibility' dans le div #content du template views/log-list.html");
+                    ok($(data).find("*[toggle-visibility*='selectedLogs.length']").length > 0, "L'attribut 'toggle-visibility' doit prendre pour valeur un test sur la taille des logs sélectionnées");
                     ok($(data).find("*[toggle-visibility*='selectedLogs.length']").text().length > 0, "Ajouter un message d'avertissement au sein de cette balise");
                 });
 
