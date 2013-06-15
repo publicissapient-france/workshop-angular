@@ -247,9 +247,10 @@ angular.module('tuto').service('exercise', function ($controller) {
                                 "date": "01/01/2013 00:00:00"
                             }
                         ]);
+                        return this;
                     },
                     error: function () {
-
+                        return this;
                     }
                 };
 
@@ -350,9 +351,10 @@ angular.module('tuto').service('exercise', function ($controller) {
                                 "date": "01/01/2013 00:00:00"
                             }
                         );
+                        return this;
                     },
                     error: function () {
-
+                        return this;
                     }
                 };
 
