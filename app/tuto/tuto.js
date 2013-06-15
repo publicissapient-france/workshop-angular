@@ -55,7 +55,8 @@ angular.module('tuto').service('exercise', function ($controller) {
                 }
 
                 // verify ng-app
-                ok($('#angular-app[ng-app*="workshop"]').length, "L'attribut ng-app doit être défini au niveau du div #angular-app");
+                ok($('#angular-app[ng-app]').length, "L'attribut ng-app doit être défini au niveau du div #angular-app");
+                ok($('#angular-app[ng-app*="workshop"]').length, "La valeur de l'attribut ng-app doit être le nom du module qui gère la page");
             }
         }),
 		new Step({
@@ -113,11 +114,11 @@ angular.module('tuto').service('exercise', function ($controller) {
 				ok(scope.logs != undefined, "La proprieté 'logs' n'est pas définie dans le scope");
                 ok(typeof scope.logs == 'object' && scope.logs instanceof Array, "La proprieté 'logs' doit être un tableau");
                 ok(scope.logs.length === 7 && scope.logs[0].url === "http://my/site/name/for/fun/and/filtering/demonstration/ok.html",
-                    "Copier les logs depuis les explications");
+                    "Copier les logs depuis le fichier workshop-angular/data/log-list.json");
 
-				ok(/<!-- ngRepeat:\s*.*\s+in\s+logs\s*-->/.test($("#angular-app").html()), "Utiliser la directive ng-repeat pour parcourir les logs et les afficher dans un tableau");
-				ok($("#angular-app tbody tr").size() === 7, "Afficher les logs dans un tableau");
-                ok($("#angular-app tbody tr:first td").size() === 5, "Le tableau doit contenir les colonnes date, url, method, status, message");
+				ok(/<!-- ngRepeat:\s*.*\s+in\s+logs\s*-->/.test($("#angular-app").html()), "Utiliser la directive ng-repeat pour parcourir les logs et les afficher dans le tableau");
+				ok($("#angular-app tbody tr").size() === 7, "Afficher les logs dans le tableau");
+                ok($("#angular-app tbody tr:first td:first").text().length > 1, "Le tableau doit contenir les colonnes date, url, method, status, message");
                 ok($("#angular-app:contains('[{')").length == 0, "Le JSON brut ne doit plus être affiché");
 			}
 		}),
