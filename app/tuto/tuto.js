@@ -227,8 +227,10 @@ angular.module('tuto').service('exercise', function ($controller) {
 
                 var initialTotal = $("#angular-app tbody tr").size();
                 $(':checkbox[ng-model="selectedStatus[\'200\']"]').trigger("click");
+                $(':checkbox[ng-model="selectedStatus.200]"]').trigger("click");
                 var secondTotal = $("#angular-app tbody tr").size();
                 $(':checkbox[ng-model="selectedStatus[\'200\']"]').trigger("click");
+                $(':checkbox[ng-model="selectedStatus.200]"]').trigger("click");
 
                 ok(initialTotal !== secondTotal, "Les logs doivent être filtrées en fonction des statuts, la directive ng-repeat doit itérer sur les logs filtrées");
 
@@ -242,9 +244,11 @@ angular.module('tuto').service('exercise', function ($controller) {
 
                 var initialTotal = $("#angular-app tbody tr").size();
                 $(':checkbox[ng-model="selectedMethods[\'GET\']"]').trigger("click");
+                $(':checkbox[ng-model="selectedMethods.GET]"]').trigger("click");
                 var secondTotal = $("#angular-app tbody tr").size();
                 $(':checkbox[ng-model="selectedMethods[\'GET\']"]').trigger("click");
-
+                $(':checkbox[ng-model="selectedMethods.GET]"]').trigger("click");
+                
                 ok(initialTotal !== secondTotal, "Les logs doivent être filtrées en fonction des verbes, la directive ng-repeat doit itérer sur les logs filtrées");
             }
         }),
