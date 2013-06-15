@@ -310,7 +310,7 @@ angular.module('tuto').service('exercise', function ($controller) {
             test: function () {
                 var routerProvider = injector.get('$route');
                 ok(routerProvider.routes['/'] !== undefined, "Configurer le $routeProvider pour définir la route '/'");
-                ok(routerProvider.routes['/'].controller === LogCtrl, "La route '/' doit être gérée par LogCtrl");
+                ok(routerProvider.routes['/'].controller === LogCtrl || routerProvider.routes['/'].controller === 'LogCtrl', "La route '/' doit être gérée par LogCtrl");
                 checkUrl('/views/log-list.html', function(data) {
                     ok(/ng-repeat/.test(data), "Déplacer le contenu du div angular-app dans le template views/log-list.html");
                 }, function() {
@@ -397,11 +397,11 @@ angular.module('tuto').service('exercise', function ($controller) {
                 ok(tuto.url === '/logs/1', "Le service $http doit récupérer la log via un get sur l'url '/logs/$routeParams.logId'");
                 ok(scope.log, "La log retournée par le backend doit être stockée dans la propriété $scope.log");
                 multiple([
-                    /\{\{log\.date\}\}/.test(templateContent),
-                    /\{\{log\.url\}\}/.test(templateContent),
-                    /\{\{log\.method\}\}/.test(templateContent),
-                    /\{\{log\.status\}\}/.test(templateContent),
-                    /\{\{log\.message\}\}/.test(templateContent)
+                    /\{\{\s*log\.date\s*\}\}/.test(templateContent.html()),
+                    /\{\{\s*log\.url\s*\}\}/.test(templateContent.html()),
+                    /\{\{\s*log\.method\s*\}\}/.test(templateContent.html()),
+                    /\{\{\s*log\.status\s*\}\}/.test(templateContent.html()),
+                    /\{\{\s*log\.message\s*\}\}/.test(templateContent.html())
                 ], "Afficher dans le nouveau template la date, l'url, le verbe, le statut et le message de la log");
             }
         }),
