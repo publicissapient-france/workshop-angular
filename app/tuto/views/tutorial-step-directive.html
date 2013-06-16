@@ -2,12 +2,12 @@
 
 <p>Pour interagir avec le DOM, AngularJS propose d'utiliser un composant appelé <a href="http://docs.angularjs.org/guide/directive" target="_blank">directive</a>.</p>
 
-<p>L'objectif de cette étape est d'afficher un message lorsqu'aucune log ne correspond aux filtres sélectionnés.</p>
+<p>L'objectif de cette étape est d'afficher un message lorsqu'aucun log ne match les filtres sélectionnés.</p>
 
     <ul>
-        <li>Dans le fichier workshop-angular/app/js/app.js, déclarer une <a href="http://docs.angularjs.org/guide/directive#writingdirectivesshortversion" target="_blank">directive (version courte)</a> <code>toggleVisibility</code> au sein du module. La déclaration s'en suit avec une fonction qui prend en paramètre le scope, une référence à l'élément html dans laquelle la directive sera appelée et un troisième paramètre qui donnera accès aux paramètres de la directive</li>
-        <li>Pour l'implémentation de cette fonction, invoquer la fonction <a href="http://code.angularjs.org/1.1.5/docs/api/ng.$rootScope.Scope#$watch" target="_blank">$watch</a> du <code>$scope</code> en lui passant l'attribut <code>toggleVisibility</code> de votre troisième paramètre puis une fonction callback</li>
-        <li>Implementer la fonction callback pour que l'affichage de l'element html soit activé lorsque l'expression passée en paramètre du callback équivaut à <code>true</code></li>
-        <li>Dans le fichier workshop-angular/app/views/log-list.html, définir un message indiquant qu'aucune log ne s'affiche dans une balise utilisant la nouvelle directive et passer en paramètre de cette directive une expression qui renvoie <code>true</code> lorsque le nombre de logs affichés est égal à 0</li>
+        <li>Dans le fichier workshop-angular/app/js/app.js, déclarer une <a href="http://docs.angularjs.org/guide/directive#writingdirectivesshortversion" target="_blank">directive (version courte)</a> appelée <code>toggleVisibility</code> au sein du module. La directive retourne une fonction qui prend en paramètre le scope, une référence à l'élément HTML au sein duquel la directive sera déclarée et un troisième paramètre qui donnera accès aux propriétés de la directive</li>
+        <li>Pour l'implémentation de cette fonction, invoquer la fonction <a href="http://code.angularjs.org/1.1.5/docs/api/ng.$rootScope.Scope#$watch" target="_blank">$watch</a> du <code>$scope</code> en lui passant l'attribut <code>toggleVisibility</code> du troisième paramètre puis une fonction callback</li>
+        <li>Implementer la fonction callback pour que l'affichage de l'element HTML soit activé lorsque l'expression passée en paramètre du callback vaut <code>true</code></li>
+        <li>Dans le fichier workshop-angular/app/views/log-list.html, définir un message indiquant qu'aucun log ne s'affiche dans une balise utilisant la nouvelle directive et passer en paramètre de cette directive une expression qui renvoie <code>true</code> lorsque le nombre de logs (<code>selectedLogs</code>) affichés est égal à 0</li>
     </ul>
 </p>

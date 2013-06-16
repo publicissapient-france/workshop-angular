@@ -171,7 +171,7 @@ angular.module('tuto').service('exercise', function ($controller) {
             }
         }),
         new Step({
-            title: "Filtrer les logs",
+            title: "Filtrer les logs par mots clés",
             detailTemplateName: "tuto/views/tutorial-step-filtrer-log.html",
             solutionTemplateName: "tuto/views/tutorial-solution-filtrer-log.html",
             test: function () {
@@ -198,7 +198,7 @@ angular.module('tuto').service('exercise', function ($controller) {
             }
         }),
         new Step({
-            title: "Filtrer par statut et verbe",
+            title: "Filtrer les logs par statuts et verbes HTTP",
             detailTemplateName: "tuto/views/tutorial-step-filter-by-status-and-methods.html",
             solutionTemplateName: "tuto/views/tutorial-solution-filter-by-status-and-methods.html",
             test: function () {
@@ -322,7 +322,7 @@ angular.module('tuto').service('exercise', function ($controller) {
             }
         }),
         new Step({
-            title: "Afficher le détail d'une log",
+            title: "Afficher le détail d'un log",
             detailTemplateName: "tuto/views/tutorial-step-log-details.html",
             solutionTemplateName: "tuto/views/tutorial-solution-log-details.html",
             test: function () {
