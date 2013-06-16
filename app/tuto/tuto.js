@@ -10,6 +10,23 @@ angular.module('tuto').controller('tutoCtrl', function ($scope, exercise, exerci
 
 angular.module('tuto').value('localStorage', window.localStorage);
 
+angular.module('tuto').directive('scrollTo', function () {
+    return function (scope, element, attributes) {
+        var tutoOffset = localStorage.tutoOffset ? parseInt(localStorage.tutoOffset) : 0;
+        setTimeout(function () {
+            $('#tutorial').scrollTop(tutoOffset);
+        }, 20);
+    }
+});
+
+angular.module('tuto').directive('scrollSave', function (localStorage) {
+    return function (scope, element, attributes) {
+        $('#tutorial').scroll(function(e) {
+            localStorage.tutoOffset = $('#tutorial').scrollTop();
+        });
+    }
+});
+
 angular.module('tuto').service('exercise', function ($controller) {
     var countAssert;
 
