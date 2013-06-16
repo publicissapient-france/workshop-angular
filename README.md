@@ -33,9 +33,12 @@ The goal of the workshop is to build an AngularJS based Web application which di
 
 ### How the workshop works ? ###
 
+* On the left part of the screen you have a list of step you need to pass
+* The current state of the application on the right part of the screen
+* When you refresh the page, a set of tests are run in order to check you have correctly fill the code (both JavaScript & HTML part)
+* The current step is in bold, the others in grey
+
 ![Workshop](http://res.cloudinary.com/dbkg4gpdt/image/upload/c_scale,h_500,w_800/v1371421061/workshop-angular_ipevhd.png)
-
-
 
 
 Let's start coding and enjoy the workshop !
