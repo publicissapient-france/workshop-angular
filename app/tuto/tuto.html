@@ -3,7 +3,7 @@
     <h2>Tutoriel</h2>
 </div>
 
-<div ng-controller="tutoCtrl" class="steps">
+<div ng-controller="tutoCtrl" class="steps" scroll-to scroll-save>
 
     <div ng-repeat="step in steps" class="step" ng-class="{'is-active': step.isActive()}"
          ng-init="opened = step.isActive(); solOpened = false">
@@ -33,3 +33,5 @@
         </div>
     </div>
 </div>
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
