@@ -92,7 +92,7 @@ angular.module('tuto').service('exercise', function ($controller) {
             }
         }),
 		new Step({
-		    title: "Le two-way data binding made in AngularJS",
+		    title: "Le two-way data binding",
             detailTemplateName: "tuto/views/tutorial-step-two-way-binding.html",
             solutionTemplateName: "tuto/views/tutorial-solution-two-way-binding.html",
             test: function () {
