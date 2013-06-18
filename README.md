@@ -4,6 +4,11 @@ AngularJS Workshop
 The goal of this workshop is to introduce the framework [AngularJS](http://angularjs.org/) in a didactic way.
 
 
+### Before starting ###
+* Download and install [Git](http://git-scm.com/downloads) to clone this repository
+* Download and install [Node](http://nodejs.org/download/) to run the little server which serves the access logs in a JSON format
+* Clone this repository : goo.gl/xUBzJ
+
 What is AngularJS ?
 -------------------
 
@@ -25,10 +30,7 @@ The workshop
 ### Goal###
 The goal of the workshop is to build an AngularJS based Web application which display and filter access logs from a Web server.
 
-### Before starting ###
-* Download and install [Git](http://git-scm.com/downloads) to clone this repository
-* Download and install [Node](http://nodejs.org/download/) to run the little server which serves the access logs in a JSON format
-* Clone this repository
+### How to start ? ###
 * Run **npm install** to download the dependencies
 * Run **node server** to start the server
 * Open a browser at [http://localhost:3000](http://localhost:3000)
