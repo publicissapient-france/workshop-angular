@@ -162,7 +162,7 @@ angular.module('tuto').service('exercise', function ($controller) {
 			}
 		}),
         new Step({
-            title: "Tronquer les URL à 15 caractères",
+            title: "Tronquer les URL",
             detailTemplateName: "tuto/views/tutorial-step-truncate-long-url.html",
             solutionTemplateName: "tuto/views/tutorial-solution-truncate-long-url.html",
             test: function () {
@@ -178,7 +178,7 @@ angular.module('tuto').service('exercise', function ($controller) {
                     resultWithShortURL = $filter('truncate')('shorturl');
                     resultWithLongURL = $filter('truncate')('unelongueurljustepourtester');
                 } catch (e) {
-                    fail("Créer un filtre qui prend en paramètre une string et qui retourne cette string tronquée à 15 caractères, suivie de '...'");
+                    fail("Créer un filtre qui prend en paramètre une string et qui retourne cette string tronquée à 12 caractères, suivie de '...'");
                 }
 
                 ok(resultWithShortURL === 'shorturl', "Si on passe 'shorturl' en paramètre du filtre, il doit retourner 'shorturl'");
