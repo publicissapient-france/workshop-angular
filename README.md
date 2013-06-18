@@ -10,13 +10,14 @@ What is AngularJS ?
 ### AngularJS in a nutshell ###
 
 * Open Source JavaScript framework intented to build [SPA](http://en.wikipedia.org/wiki/Single-page_application) (Single Page Applications)
-* First release in 2009 and mainly maintained by Google
+* First release in 2009 and maintained by Google
 * Use MVC pattern
-* Enrich HTML syntax with additional custom tag attributes A.K.A directives
-* Compatible with IE 7+ and all the others modern browsers
-* Currently in version [1.0.7](http://code.angularjs.org/1.0.7/) stable and [1.1.5](http://code.angularjs.org/1.1.5/) unstable
-* KARMA & testability (e2e and unit tests)
+* Plain javascript
+* Enrich HTML syntax with additional custom tag : directives
 * Dependency injection
+* Testability (e2e and unit tests)
+* Compatible with IE 7+ and all the modern browsers
+* Currently in version [1.0.7](http://code.angularjs.org/1.0.7/) stable and [1.1.5](http://code.angularjs.org/1.1.5/) unstable
 
 The workshop
 ------------
