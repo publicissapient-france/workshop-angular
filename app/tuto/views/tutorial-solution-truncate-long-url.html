@@ -3,7 +3,7 @@ Fichier workshop-angular/app/js/app.js
     ...
     app.filter('truncate', function () {
         return function (text) {
-            text.length > 12 ? text.substring(0, 12) + '...' : text;
+            return text.length > 12 ? text.substring(0, 12) + '...' : text;
         };
     });
     ...
