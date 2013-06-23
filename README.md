@@ -7,7 +7,7 @@ The goal of this workshop is to introduce the framework [AngularJS](http://angul
 ### Before starting ###
 * Download and install [Git](http://git-scm.com/downloads) to clone this repository
 * Download and install [Node](http://nodejs.org/download/) to run the little server which serves the access logs in a JSON format
-* Clone this repository : goo.gl/xUBzJ
+* Clone this repository
 
 What is AngularJS ?
 -------------------
